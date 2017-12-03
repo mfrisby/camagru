@@ -1,0 +1,8 @@
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    transition: opacity 0.6s;
+    border-bottom: 1px solid black;
+    opacity: 1;
+}
