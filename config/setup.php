@@ -6,7 +6,6 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = "CREATE DATABASE camagru";
         $pdo->exec($req);
-        echo "DATABASE created.";
     }
     catch (PDOException $e) {
         echo "ERROR CREATING DB\n" . $e . "\n";

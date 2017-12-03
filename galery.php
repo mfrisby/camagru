@@ -21,6 +21,5 @@
             echo 'La table n\'est pas vide.';
         }
     ?>
-
 </div>
 <?php include("html/footer.html"); ?>
