@@ -55,6 +55,6 @@
         catch (PDOException $e) {
             $_SESSION['error'] = "CREATE USER ERROR: ".$e->getMessage();
         }
-        header("Location: index.php?msg");
+        header("Location: index.php?msgsign");
 }
 ?>

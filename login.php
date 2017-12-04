@@ -22,6 +22,7 @@
     catch (PDOException $e) {
         echo "ERROR LOGIN" . $e->getMessage();
     }
+    $_SESSION['username'] = $_POST['username'];
     $_SESSION['signup_success'] = true;
-    header('Location: index.php');
+    header("Location: index.php");
 ?>

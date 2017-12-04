@@ -15,7 +15,7 @@
         <a href="galery.php">Galery</a>
         <?php
             if(isset($_SESSION['signup_success']))  {
-                echo "<a href=\"#\" id=\"bRight\">Sign out</a>";
+                echo "<a href=\"logout.php\" id=\"bRight\">Sign out</a>";
                 echo "<a href=\"#\" id=\"bRight\">Profil</a>";
             }
             else {
