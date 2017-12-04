@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once 'config/database.php';
     require_once 'email.php';
     //prepare pdo
@@ -56,6 +55,6 @@
         catch (PDOException $e) {
             $_SESSION['error'] = "CREATE USER ERROR: ".$e->getMessage();
         }
-        header('Location: index.php');
-    }
+        header("Location: index.php?msg");
+}
 ?>

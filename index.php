@@ -8,6 +8,10 @@
         }
         else {
             include("html/forms.html");
+            if(isset($_GET['msg'] ) )
+            {
+                echo "<h2>An email has been sent, please confirm your account and login.</h2>";
+            }
         }
     ?>
 </div>
