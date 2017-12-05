@@ -7,6 +7,7 @@
             echo "<h2>You're not logged anymore.</h2>";
         }
         if(isset($_SESSION['signup_success']))  {
+            //TODO check if confirm mail
             include("html/body.html");
         }
         else {
