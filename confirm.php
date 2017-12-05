@@ -27,6 +27,7 @@
 
         $reponse = $pdo->query("SELECT * FROM users WHERE id = $userid"); 
         $donnees = $reponse->fetch();
+        $pdo->query("UPDATE users SET verified='O' WHERE id = $userid");
         if ($donnees['token'] == $token)
             return (1);
         return (0);
