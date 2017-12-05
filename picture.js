@@ -7,7 +7,7 @@
   
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas');
-	var photo = document.getElementById('photo');
+	//var photo = document.getElementById('photo');
 	var startbutton = document.getElementById('startbutton');
   
 	function startup() {
@@ -61,19 +61,21 @@
 		ev.preventDefault();
 	  }, false);
 	  
-	  clearphoto();
+	 // clearphoto();
 	}
   
-	function clearphoto() {
+/* 	function clearphoto() {
 	  var context = canvas.getContext('2d');
 	  context.fillStyle = "#AAA";
 	  context.fillRect(0, 0, canvas.width, canvas.height);
   
 	  var data = canvas.toDataURL('image/png');
 	  photo.setAttribute('src', data);
-	}
+	} */
   
 	function takepicture() {
+		var toto = document.getElementById("loul");
+		var li = document.createElement("li");
 	  var context = canvas.getContext('2d');
 	  if (width && height) {
 		canvas.width = width;
@@ -81,9 +83,11 @@
 		context.drawImage(video, 0, 0, width, height);
 	  
 		var data = canvas.toDataURL('image/png');
-		photo.setAttribute('src', data);
+		li.innerHTML = "<li><img src=\"" + data + "\"alt=\"\" />lol</li>";
+	//	photo.setAttribute('src', data);
+		toto.appendChild(li);
 	  } else {
-		clearphoto();
+		//clearphoto();
 	  }
 	}
 

@@ -18,9 +18,6 @@
                 echo "<a href=\"logout.php\" id=\"bRight\">Sign out</a>";
                 echo "<a href=\"#\" id=\"bRight\">Profil</a>";
             }
-            else {
-                echo "<a href=\"#\" id=\"bRight\">Sign in</a>";
-            }
         ?>
     </nav>
 </HEADER>

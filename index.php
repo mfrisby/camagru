@@ -8,7 +8,7 @@
         }
         if(isset($_SESSION['signup_success']))  {
             //TODO check if confirm mail
-            include("html/body.html");
+            include("html/body.php");
         }
         else {
             include("html/forms.html");
