@@ -11,8 +11,8 @@
 <button class="button" id="savebutton">Save photo</button>
 </br>
 <canvas id="canvas" style="display:none;" width="400" height="400"></canvas>
-<!-- <div class="output">
+<div class="output">
     <img id="photo" alt="The screen capture will appear in this box.">
-</div> -->
+</div>
 
-<script src="picture.js"></script>
+<script src="js/picture.js"></script>

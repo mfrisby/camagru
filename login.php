@@ -12,7 +12,7 @@
         $req = $pdo->prepare("SELECT * FROM users WHERE username=:username");
         $req->execute(array(':username' => $username));
         $user = $req->fetch();
-        $req->closeCursor ();
+        $req->closeCursor();
 
         if (!$user) {
             header("Location: index.php?msglogerror");
