@@ -1,24 +1,21 @@
 <?php 
     session_start();
-    include("html/header.php"); ?>
+    include("html/header.php");
+?>
 <div class="centered">
     <?php
         require_once 'config/database.php';
-
-        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        require 'pdo.php';    
         
-        $reponse = $pdo->query('SELECT * FROM gallery'); 
-
-        $donnees = $reponse->fetch();
-        
-        if ($donnees <= 0)
-        {
-            echo 'La table est vide';
+        $pdo = connect_pdo();
+        $req = $pdo->prepare("SELECT * FROM gallery");
+        $req->execute();
+        $data = $req->fetch();
+        if ($data <= 0) {
+            echo 'La galerie est vide';
         }
-        else
-        {
-            echo 'La table n\'est pas vide.';
+        else {
+            echo 'La galerie n\'est pas vide.';
         }
     ?>
 </div>
