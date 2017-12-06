@@ -19,9 +19,15 @@
         }
         if (password_verify($password, $user['password'])){
             $req->closeCursor();
-            $_SESSION['signup_success'] = true;
-            $_SESSION['user'] = $user;
-            header("Location: index.php");
+            if ($user['verified'] == 'O') {
+                $_SESSION['signup_success'] = true;
+                $_SESSION['user'] = $user;
+                header("Location: index.php");
+            }
+            else {
+                $req->closeCursor();
+                header("Location: index.php?msglogverified");
+            }
         }
         else {
             $req->closeCursor();
