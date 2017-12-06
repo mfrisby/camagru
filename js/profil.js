@@ -42,20 +42,35 @@ function passwordSubmit() {
     var formData = new FormData(form);
     var password = formData.get('password');
     var value = formData.get('value');
-    alert(password + " " + value);
+    ajaxRequest(formData);
 }
 function usernameSubmit() {
     var form = document.forms.usernameForm;
     var formData = new FormData(form);
     var password = formData.get('password');
     var value = formData.get('value');
-    alert(password + " " + value);
-    
+    ajaxRequest(formData);
 }
 function emailSubmit() {
     var form = document.forms.emailForm;
     var formData = new FormData(form);
     var password = formData.get('password');
     var value = formData.get('value');
-    alert(password + " " + value);
+    ajaxRequest(formData);
+}
+
+function ajaxRequest(formData) {
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    };
+    xmlhttp.open("POST","profil.php",true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(formData);
 }

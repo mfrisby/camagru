@@ -37,3 +37,10 @@
 </div>
 <script src="js/profil.js"></script>
 <?php include("html/footer.html"); ?>
+
+<?php
+    if (isset($_POST)) {
+        if (isset($_POST['value']))
+            echo $_POST['value'];
+    }
+?>
