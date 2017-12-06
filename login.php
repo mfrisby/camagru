@@ -1,36 +1,33 @@
 <?php
     session_start();
     require_once 'config/database.php';
+    require 'pdo.php';
 
     $username = $_POST['username'];
     $password = $_POST['password'];
     
     try {
-        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo = connect_pdo();
 
-        $req = $pdo->prepare("SELECT * FROM users WHERE username= :username");
+        $req = $pdo->prepare("SELECT * FROM users WHERE username=:username");
         $req->execute(array(':username' => $username));
         $user = $req->fetch();
+        $req->closeCursor ();
 
         if (!$user) {
-            $req->closeCursor();
             header("Location: index.php?msglogerror");
         }
         if (password_verify($password, $user['password'])){
-            $req->closeCursor();
             if ($user['verified'] == 'O') {
                 $_SESSION['signup_success'] = true;
                 $_SESSION['user'] = $user;
                 header("Location: index.php");
             }
             else {
-                $req->closeCursor();
                 header("Location: index.php?msglogverified");
             }
         }
         else {
-            $req->closeCursor();
             header("Location: index.php?msglogerror");
         }
     }
