@@ -1,10 +1,8 @@
 <?php
     require_once 'config/database.php';
     require_once 'email.php';
-
-    $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    require 'pdo.php';
+    $pdo = connect_pdo();
     if (!empty($_POST))
     {
         $errors = array();
@@ -56,4 +54,3 @@
         }
         header("Location: index.php?msgsign");
 }
-?>
