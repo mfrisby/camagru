@@ -1,7 +1,7 @@
 <?php
     require_once 'config/database.php';
     require_once 'email.php';
-    //prepare pdo
+
     $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -12,7 +12,6 @@
             $errors['username'] = "username invalide.";
         }
         else {
-            //check user exist
             $req = $pdo->prepare('SELECT id FROM users WHERE username = ?');
             $req->execute([$_POST['username']]);
             $user = $req->fetch();
@@ -25,7 +24,6 @@
             $errors['email'] = "Email invalide.";
         }
         else {
-            //check email exist
             $req = $pdo->prepare('SELECT id FROM users WHERE email = ?');
             $req->execute([$_POST['email']]);
             $email = $req->fetch();
@@ -37,7 +35,7 @@
         if (empty($_POST['password']) OR strlen($_POST['password']) < 3) {
             $errors['password'] = "Mot de passe invalide";
         }
-        $password =  hash("whirlpool", $_POST['password']);
+        $password =  password_hash($_POST['password'], PASSWORD_DEFAULT);
         if (!empty($errors)) {
             echo "<div class=\"alert\">";
             foreach ($errors as $error) {
@@ -47,8 +45,9 @@
             return (-1);
         }
         try {
-            $req= $pdo->prepare("INSERT INTO users (username, email, password, token) VALUES (:username, :email, :password, :token)");
+            $req = $pdo->prepare("INSERT INTO users (username, email, password, token) VALUES (:username, :email, :password, :token)");
             $token = uniqid(rand(), true);
+            echo $password;
             $req->execute(array(':username' => $username, ':email' => $email, ':password' => $password, ':token' => $token));
             sendVerifMail($email, $token, $pdo->lastInsertId());
         }
