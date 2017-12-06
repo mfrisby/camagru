@@ -22,13 +22,13 @@
 <?php
     function check_token($userid, $token) {
         require_once 'config/database.php';
-        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $reponse = $pdo->query("SELECT * FROM users WHERE id = $userid"); 
-        $donnees = $reponse->fetch();
+        require 'pdo.php';
+        $pdo = connect_pdo();
+        $req = $pdo->query("SELECT * FROM users WHERE id = $userid"); 
+        $data = $req->fetch();
         $pdo->query("UPDATE users SET verified='O' WHERE id = $userid");
-        if ($donnees['token'] == $token)
+        $req->closeCursor();
+        if ($data['token'] == $token)
             return (1);
         return (0);
     }
