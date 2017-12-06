@@ -16,7 +16,7 @@
         <?php
             if(isset($_SESSION['signup_success']))  {
                 echo "<a href=\"logout.php\" id=\"bRight\">Sign out</a>";
-                echo "<a href=\"#\" id=\"bRight\">Profil</a>";
+                echo "<a href=\"profil.php\" id=\"bRight\">Profil</a>";
             }
         ?>
     </nav>
