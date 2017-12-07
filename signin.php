@@ -29,7 +29,7 @@
                 $errors['email'] = "Email already exist.";
             }
         }
-        $email = strtolower($_POST['email']);        
+        $email = strtolower($_POST['email']);
         if (empty($_POST['password']) OR strlen($_POST['password']) < 3) {
             $errors['password'] = "Mot de passe invalide";
         }
@@ -45,7 +45,6 @@
         try {
             $req = $pdo->prepare("INSERT INTO users (username, email, password, token) VALUES (:username, :email, :password, :token)");
             $token = uniqid(rand(), true);
-            echo $password;
             $req->execute(array(':username' => $username, ':email' => $email, ':password' => $password, ':token' => $token));
             sendVerifMail($email, $token, $pdo->lastInsertId());
         }
