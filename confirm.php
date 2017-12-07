@@ -22,7 +22,7 @@
 <?php
     function check_token($userid, $token) {
         require_once 'config/database.php';
-        require 'pdo.php';
+        require 'functions/pdo.php';
         $pdo = connect_pdo();
         try {
             $req = $pdo->prepare("SELECT * FROM users WHERE id =:id");
