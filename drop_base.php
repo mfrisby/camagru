@@ -2,7 +2,8 @@
 include 'database.php';
 require 'function/pdo.php';
     try {
-        $pdo = connect_pdo();
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = "DROP DATABASE `".$DB_NAME."`";
         $pdo->exec($req);
         echo "Database droped successfully\n";

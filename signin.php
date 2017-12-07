@@ -1,8 +1,8 @@
 <?php
     require_once 'config/database.php';
     require_once 'functions/email.php';
-    require 'functions/pdo.php';
-    $pdo = connect_pdo();
+    $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (!empty($_POST))
     {
         $errors = array();

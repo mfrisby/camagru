@@ -1,19 +1,27 @@
     var sign = document.querySelector('.signButton');
     var log = document.querySelector('.logButton');
-    var lForm = document.querySelector('#logForm');
-    var sForm = document.querySelector('#signForm');
+    var ldiv = document.querySelector('#logdiv');
+    var sdiv = document.querySelector('#signdiv');
+    var lform = document.querySelector('#logform');
+    var sform = document.querySelector('#signform');
 
     sign.addEventListener('click', function (event) {
-        if (sForm.style.display == "none") {
-            sForm.style.display = "block";
-            lForm.style.display = "none";
+        if (sdiv.style.display == "none") {
+            sdiv.style.display = "block";
+            ldiv.style.display = "none";
 
         }
     });
     log.addEventListener('click', function (event) {
-        if (lForm.style.display == "none") {
-            lForm.style.display = "block";
-            sForm.style.display = "none";
+        if (ldiv.style.display == "none") {
+            ldiv.style.display = "block";
+            sdiv.style.display = "none";
 
         }
+    });
+    lform.addEventListener('submit', function (event) {
+        usernameSubmit();
+    });
+    sform.addEventListener('submit', function (event) {
+        emailSubmit();
     });

@@ -39,10 +39,10 @@
     }
     function resetPassword($email) {
         require 'config/database.php';
-        require 'functions/pdo.php';
         try
         { 
-            $pdo = connect_pdo();
+            $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $password = randomPassword();
             $psd = password_hash($password, PASSWORD_DEFAULT);
 
@@ -52,6 +52,7 @@
 
             if ($req == true) {
                 sendPassword($email, $password);
+                update_session($email);
             }
             else {
                 echo "This email does not exist.";
@@ -59,6 +60,13 @@
         }
         catch (PDOException $e) {
             echo $e->getMessage();
-        } 
+        }
+    }
+    function update_session($email) {
+        $req = $pdo->prepare("SELECT * FROM users WHERE email=:email");
+        $req->execute(array('email' => $email));
+        $req->closeCursor();
+        $user = $req->fetch();
+        $_SESSION['user'] = $user;
     }
 ?>

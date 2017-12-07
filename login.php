@@ -1,14 +1,13 @@
 <?php
     session_start();
     require_once 'config/database.php';
-    require 'functions/pdo.php';
 
     $username = $_POST['username'];
     $password = $_POST['password'];
     
     try {
-        $pdo = connect_pdo();
-
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = $pdo->prepare("SELECT * FROM users WHERE username=:username");
         $req->execute(array(':username' => $username));
         $user = $req->fetch();

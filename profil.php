@@ -45,8 +45,8 @@
         $user = $_SESSION['user'];
 
         require 'functions/check_form.php';
-        require 'functions/pdo.php';
-        $pdo = connect_pdo();
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if (isset($_POST['valueP']) AND password_verify($password, $user['password'])) {
             $p = check_password($_POST['valueP'], $pdo);
             if ($p != NULL) {

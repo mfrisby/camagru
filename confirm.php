@@ -22,8 +22,8 @@
 <?php
     function check_token($userid, $token) {
         require_once 'config/database.php';
-        require 'functions/pdo.php';
-        $pdo = connect_pdo();
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
             $req = $pdo->prepare("SELECT * FROM users WHERE id =:id");
             $req->execute(array('id' => $userid));
