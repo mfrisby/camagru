@@ -6,27 +6,31 @@
   
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas');
-	//var photo = document.getElementById('photo');
+	var photo = document.getElementById('photo');
 	var startbutton = document.getElementById('startbutton');
+
+	width = 320,
+	height = 0;
   
 	function startup() {
   
-	  navigator.getMedia = ( navigator.getUserMedia ||
-							 navigator.webkitGetUserMedia ||
-							 navigator.mozGetUserMedia ||
-							 navigator.msGetUserMedia);
+		navigator.getMedia = (
+			navigator.getUserMedia ||
+			navigator.webkitGetUserMedia ||
+			navigator.mozGetUserMedia ||
+			navigator.msGetUserMedia);
   
 	  navigator.getMedia({
 		  video: true,
 		  audio: false
-		}, function(stream) {
-			if (navigator.mozGetUserMedia) {
+		},
+		function(stream) {
+			if (navigator.mediaDevices.getUserMedia) {
 				video.mozSrcObject = stream;
-		  	}
-		  	else {
+		  }
+		  else {
 				var vendorURL = window.URL || window.webkitURL;
 				video.src = vendorURL.createObjectURL(stream);
-				video.src = vendorURL.createObjectURL("images/Hat.png");
 		 	}
 			video.play();
 		},
@@ -37,23 +41,18 @@
 	video.addEventListener('canplay', function(ev){
 		if (!streaming) {
 			height = video.videoHeight / (video.videoWidth/width);
-		
-		if (isNaN(height)) {
-			height = width / (4/3);
+			video.setAttribute('width', width);
+			video.setAttribute('height', height);
+			canvas.setAttribute('width', width);
+			canvas.setAttribute('height', height);
+			streaming = true;
 		}
-		
-		video.setAttribute('width', width);
-		video.setAttribute('height', height);
-		canvas.setAttribute('width', width);
-		canvas.setAttribute('height', height);
-		streaming = true;
-		}
-	  }, false);
+	}, false);
   
-	  startbutton.addEventListener('click', function(ev){
+	startbutton.addEventListener('click', function(ev){
 		takepicture();
 		ev.preventDefault();
-	  }, false);
+	}, false);
 
 	  savebutton.addEventListener('click', function(ev){
 		sendpicture();
@@ -75,18 +74,19 @@
 	function takepicture() {
 		var toto = document.getElementById("loul");
 		var li = document.createElement("li");
+
 	  var context = canvas.getContext('2d');
 	  if (width && height) {
-		canvas.width = width;
-		canvas.height = height;
-		context.drawImage(video, 0, 0, width, height);
-	  
-		var data = canvas.toDataURL('image/png');
-		li.innerHTML = "<li><img src=\"" + data + "\"alt=\"\" />lol</li>";
-	//	photo.setAttribute('src', data);
-		toto.appendChild(li);
-	  } else {
-		//clearphoto();
+			canvas.width = width;
+			canvas.height = height;
+			context.drawImage(video, 0, 0, width, height);
+			var data = canvas.toDataURL('image/png');
+			li.innerHTML = "<li><img src=\"" + data + "\"alt=\"\" />lol</li>";
+			photo.setAttribute('src', data);
+			toto.appendChild(li);
+		}
+		else {
+				//clearphoto();
 	  }
 	}
 

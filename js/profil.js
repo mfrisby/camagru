@@ -41,21 +41,21 @@ function passwordSubmit() {
     var form = document.forms.passwordForm;
     var formData = new FormData(form);
     var password = formData.get('password');
-    var value = formData.get('value');
+    var value = formData.get('valueP');
     ajaxRequest(formData);
 }
 function usernameSubmit() {
     var form = document.forms.usernameForm;
     var formData = new FormData(form);
     var password = formData.get('password');
-    var value = formData.get('value');
+    var value = formData.get('valueU');
     ajaxRequest(formData);
 }
 function emailSubmit() {
     var form = document.forms.emailForm;
     var formData = new FormData(form);
     var password = formData.get('password');
-    var value = formData.get('value');
+    var value = formData.get('valueE');
     ajaxRequest(formData);
 }
 

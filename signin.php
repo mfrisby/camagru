@@ -1,7 +1,7 @@
 <?php
     require_once 'config/database.php';
-    require_once 'email.php';
-    require 'pdo.php';
+    require_once 'functions/email.php';
+    require 'functions/pdo.php';
     $pdo = connect_pdo();
     if (!empty($_POST))
     {

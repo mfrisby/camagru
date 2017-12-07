@@ -5,7 +5,7 @@
 <div class="centered">
     <?php
         require_once 'config/database.php';
-        require 'pdo.php';    
+        require 'functions/pdo.php';    
         
         $pdo = connect_pdo();
         $req = $pdo->prepare("SELECT * FROM gallery");

@@ -1,6 +1,6 @@
 <?php
 include 'database.php';
-require 'pdo.php';
+require 'function/pdo.php';
     try {
         $pdo = connect_pdo();
         $req = "DROP DATABASE `".$DB_NAME."`";

@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once 'config/database.php';
-    require 'pdo.php';
+    require 'functions/pdo.php';
 
     $username = $_POST['username'];
     $password = $_POST['password'];

@@ -2,17 +2,14 @@
 
 
 <div class="rightBar">
-    <ul id="loul">
-    </ul>
-</div>
-<video id="video" width="400" height="400">Video stream not available.</video>
-</br>
-<button class="button" id="startbutton">Take photo</button>
-<button class="button" id="savebutton">Save photo</button>
-</br>
-<canvas id="canvas" style="display:none;" width="400" height="400"></canvas>
-<div class="output">
-    <img id="photo" alt="The screen capture will appear in this box.">
+    <ul id="loul"></ul>
 </div>
 
+<video id="video"></video>
+</br>
+<button class="button" id="startbutton">Shoot</button>
+<button class="button" id="savebutton">Save</button>
+</br>
+<canvas id="canvas"></canvas>
+<!-- <img id="photo" alt="The screen capture will appear in this box.">-->
 <script src="js/picture.js"></script>

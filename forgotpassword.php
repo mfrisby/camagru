@@ -14,7 +14,7 @@
 
 <?php
     if (isset($_POST['email'])) {
-        include("email.php");
+        include("functions/email.php");
         resetPassword($_POST['email']);
     }
 ?>
