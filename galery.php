@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("html/header.php");
+    include("parts/header.php");
 ?>
 <div class="centered">
     <?php
@@ -19,4 +19,4 @@
         }
     ?>
 </div>
-<?php include("html/footer.html"); ?>
+<?php include("parts/footer.html"); ?>

@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("html/header.php"); ?>
+    include("parts/header.php"); ?>
 <div class="centered">
     <?php
         $home = "</br></br><a href=\"index.php\" class=\"button\">Back</a>";
@@ -13,14 +13,14 @@
             echo $home;
         }
         else if (isset($_SESSION['signup_success']) AND isset($_SESSION['user']))  {
-            include("html/body.php");
+            include("parts/body.php");
         }
         else if (isset($_GET['msglogverified'])) {
             echo "I send you a link by email.</br>Please validate your account.";
             echo $home;
         }
         else {
-            include("html/forms.html");
+            include("parts/forms.html");
             if(isset($_GET['msgsign'] ) ) {
                 echo "<h2>An email has been sent, please confirm your account and login.</h2>";
                 echo $home;
@@ -28,4 +28,4 @@
         }
     ?>
 </div>
-<?php include("html/footer.html"); ?>
+<?php include("parts/footer.html"); ?>

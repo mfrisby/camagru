@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("html/header.php"); ?>
+    include("parts/header.php"); ?>
 <div class="centered">
     <?php
         if (isset($_GET['token']) AND isset($_GET['id'])) {
@@ -17,7 +17,7 @@
         }
     ?>
 </div>
-<?php include("html/footer.html"); ?>
+<?php include("parts/footer.html"); ?>
 
 <?php
     function check_token($userid, $token) {

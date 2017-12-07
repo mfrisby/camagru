@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("html/header.php"); ?>
+    include("parts/header.php"); ?>
 <div class="centered">
     <h2>Do you want to change something ?</h2>
     <a class="button" id="password">Password</a>
@@ -36,7 +36,7 @@
   
 </div>
 <script src="js/profil.js"></script>
-<?php include("html/footer.html"); ?>
+<?php include("parts/footer.html"); ?>
 
 <?php
     if (isset($_POST) AND isset($_POST['password']) AND isset($_SESSION['user'])) {

@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("html/header.php"); ?>
+    include("parts/header.php"); ?>
 <div class="centered">
 
 <form id="forgotten" method="post" action="">
@@ -10,7 +10,7 @@
         <input type="submit" class="button" value="Send me a new password!"></input>
     </form>
 </div>
-<?php include("html/footer.html"); ?>
+<?php include("parts/footer.html"); ?>
 
 <?php
     if (isset($_POST['email'])) {
