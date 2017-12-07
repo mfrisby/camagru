@@ -13,7 +13,7 @@
             echo $home;
         }
         else if (isset($_SESSION['signup_success']) AND isset($_SESSION['user']))  {
-            include("parts/body.php");
+            include("parts/picture.php");
         }
         else if (isset($_GET['msglogverified'])) {
             echo "I send you a link by email.</br>Please validate your account.";

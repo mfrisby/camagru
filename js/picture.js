@@ -1,4 +1,11 @@
 (function() {
+
+/* 	var file = document.getElementById('formfile');
+	file.addEventListener('submit', function(ev){
+		saveFile();
+		ev.preventDefault();
+	}, false);
+ */
 	var width = 400;
 	var height = 400;
 
@@ -96,4 +103,13 @@
 	  }
 
 	window.addEventListener('load', startup, false);
-  })();
+	})();
+	
+/* 	function saveFile() {
+    var form = document.forms.formfile;
+		var formData = new FormData(form);
+
+		var request = new XMLHttpRequest();
+		request.open("POST", "functions/submitfile.php");
+		request.send(new FormData(formData));
+	} */
