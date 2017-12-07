@@ -24,10 +24,20 @@
         require_once 'config/database.php';
         require 'pdo.php';
         $pdo = connect_pdo();
-        $req = $pdo->query("SELECT * FROM users WHERE id = $userid"); 
-        $data = $req->fetch();
-        $pdo->query("UPDATE users SET verified='O' WHERE id = $userid");
-        $req->closeCursor();
+        try {
+            $req = $pdo->prepare("SELECT * FROM users WHERE id =:id");
+            $req->execute(array('id' => $userid));
+            $data = $req->fetch();
+            $req->closeCursor();
+
+            $req = $pdo->prepare("UPDATE users SET verified='O' WHERE id =:id");
+            $req->execute(array('id' => $userid));
+            $req->closeCursor();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+            return (-2);
+        }
         if ($data['token'] == $token)
             return (1);
         return (0);
