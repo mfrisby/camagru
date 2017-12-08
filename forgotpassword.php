@@ -53,6 +53,9 @@
         return implode($pass); //turn the array into a string
     }
     function update_session($email) {
+        require 'config/database.php';
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = $pdo->prepare("SELECT * FROM users WHERE email=:email");
         $req->execute(array('email' => $email));
         $req->closeCursor();
