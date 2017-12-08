@@ -4,8 +4,8 @@
             return (NULL);
         }
         else {
-            $req = $pdo->prepare('SELECT id FROM users WHERE username =: username');
-            $req->execute(array('username' => $username));
+            $req = $pdo->prepare('SELECT id FROM users WHERE username=:username');
+            $req->execute(array(':username' => $username));
             $user = $req->fetch();
             $req->closeCursor();
             if ($user) {
@@ -15,19 +15,19 @@
         return ($username);
     }
     function check_email($email, $pdo) {
+        $email = strtolower($email);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return (NULL);
         }
         else {
-            $req = $pdo->prepare('SELECT id FROM users WHERE email =: email');
-            $req->execute(array('email' => $email));
+            $req = $pdo->prepare('SELECT id FROM users WHERE email=:email');
+            $req->execute(array(':email' => $email));
             $result = $req->fetch();
             $req->closeCursor();
             if ($result) {
                 return (NULL);
             }
         }
-        $email = strtolower($_POST['email']);
         return ($email);
     }
     function check_password($password) {
