@@ -15,7 +15,12 @@
 <?php
     require ("functions/email.php");
     if (isset($_POST['email'])) {
-        resetPassword($_POST['email']);
+        if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            resetPassword($_POST['email']);
+        }
+        else {
+            echo "<div class=\"alert\">Wrong email</div>";
+        }
     }
     function resetPassword($email) {
         require 'config/database.php';
@@ -26,16 +31,19 @@
             $password = randomPassword();
             $psd = password_hash($password, PASSWORD_DEFAULT);
 
-            $req = $pdo->prepare("UPDATE users SET password='{$psd}' WHERE email=:email");
+            $req = $pdo->prepare("SELECT * FROM users WHERE email=:email");
             $req->execute(array('email' => $email));
+            $user = $req->fetch();
             $req->closeCursor();
-
-            if ($req == true) {
+            if ($user) {
+                $req = $pdo->prepare("UPDATE users SET password='{$psd}' WHERE email=:email");
+                $req->execute(array('email' => $email));
+                $req->closeCursor();
                 sendPassword($email, $password);
-                update_session($email);
+                echo "<div class=\"alertgreen\">An email has been sent.</div>";
             }
             else {
-                echo "This email does not exist.";
+                echo "<div class=\"alert\">This email does not exist.</div>";
             }
         }
         catch (PDOException $e) {

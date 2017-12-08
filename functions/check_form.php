@@ -31,7 +31,7 @@
         return ($email);
     }
     function check_password($password) {
-        if (empty($_POST['password']) OR strlen($_POST['password']) < 3) {
+        if (empty($_POST['password']) OR (strlen($_POST['password'])) < 3) {
             return (NULL);
         }
         return password_hash($password, PASSWORD_DEFAULT);
