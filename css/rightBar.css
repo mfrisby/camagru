@@ -1,18 +1,5 @@
 .rightBar {
+    position: absolute;
+    right: 50px;
     width:25%;
-    float: right;
-}
-
-.rightBar ul li{
-    display: block;
-    position:relative;
-    list-style:none;
-    width:100px;
-    height:100px;
-    padding:10px;
-}
-
-.rightBar a {
-    text-decoration: none;
-    color: white;
 }

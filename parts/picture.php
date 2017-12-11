@@ -1,3 +1,7 @@
+
+<div class="rightBar">
+    <table id="tmp"></table>
+</div>
 <h1>Welcome !</h1>
 </br>
     <form method="post" action="functions/submitfile.php" enctype="multipart/form-data" id="formfile">
@@ -12,5 +16,4 @@
     <button class="button" id="savebutton">Save</button>
     </br>
     <canvas id="canvas"></canvas>
-    <!-- <img id="photo" alt="The screen capture will appear in this box.">-->
 <script src="js/picture.js"></script>

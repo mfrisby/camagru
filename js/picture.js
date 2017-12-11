@@ -79,8 +79,8 @@
 	} */
   
 	function takepicture() {
-		var toto = document.getElementById("loul");
-		var li = document.createElement("li");
+		var toto = document.getElementById("tmp");
+		var tr = document.createElement("tr");
 
 	  var context = canvas.getContext('2d');
 	  if (width && height) {
@@ -88,9 +88,8 @@
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
 			var data = canvas.toDataURL('image/png');
-			li.innerHTML = "<li><img src=\"" + data + "\"alt=\"\" />lol</li>";
-			photo.setAttribute('src', data);
-			toto.appendChild(li);
+			tr.innerHTML += "<tr><img src=\"" + data + "\"/></tr>";
+			toto.appendChild(tr);
 		}
 		else {
 				//clearphoto();
