@@ -16,6 +16,9 @@
 	var fire = document.getElementById('fire');
 	var hatborder = document.getElementById('trHat');
 	var fireborder = document.getElementById('trFire');
+	var noneborder = document.getElementById('trNone');
+
+	var array = [];
 
 	function startup() {
   
@@ -53,8 +56,6 @@
 	}, false);
   
 	function takepicture() {
-		var toto = document.getElementById("tmp");
-		var tr = document.createElement("tr");
 
 	  if (width && height) {
 			canvas.width = width;
@@ -64,22 +65,34 @@
 				img.onload = function() {
 					context.drawImage(img, 50, 0);
 					var data = canvas.toDataURL('image/png');
-					tr.innerHTML += "<tr><img src=\"" + data + "\"/></tr>";
-					toto.appendChild(tr);
+					array.push(data);
 				}
 				img.src = path;
 			}
 			else {
 				var data = canvas.toDataURL('image/png');
-				tr.innerHTML += "<tr><img src=\"" + data + "\"/></tr>";
-				toto.appendChild(tr);
+				array.push(data);
 			}
+			show_array();
 		}
 		else {
 				//clearphoto();
 	  }
 	}
+	function show_array() {
+		var tmp = document.getElementById("tmp");
+		var len = array.length - 1;
+		var i = 0;
+		tmp.innerHTML = '';
+		while (i < 5) {
+			var tr = document.createElement("tr");
+			tr.innerHTML += "<img src=\"" + array[len] + "\"/>";
+			tmp.appendChild(tr);
+			i++;
+			len--;
+		}
 
+	}
 		function sendpicture() {	
 			alert("coucou");
 		}
@@ -96,14 +109,23 @@
 		fire.addEventListener('click', function(ev){
 			path = "images/fire.png";
 			fireborder.style.border = "1px solid white";
+			noneborder.style.border = "none";
 			hatborder.style.border = "none";
 			ev.preventDefault();
 		}, false);
 
 		hat.addEventListener('click', function(ev){
 			path = "images/hat.png";
-			var style = hat.parentNode;
 			hatborder.style.border = "1px solid white";
+			noneborder.style.border = "none";
+			fireborder.style.border = "none";
+			ev.preventDefault();
+		}, false);
+
+		none.addEventListener('click', function(ev){
+			path = "";
+			hatborder.style.border = "none";
+			noneborder.style.border = "1px solid white";
 			fireborder.style.border = "none";
 			ev.preventDefault();
 		}, false);

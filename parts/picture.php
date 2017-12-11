@@ -1,15 +1,19 @@
-
-<div class="rightBar">
-    <table id="tmp"></table>
-</div>
-<div class="leftBar">
+</br>
+</br>
+</br>
+<div class="left">
     <table id="imgs">
-        <tr>none</tr>
-        <tr><div id="trFire"><a id="fire"><img src="images/fire.png"></img></a></div></tr>
-        <tr><div id="trHat"><a id="hat"><img src="images/hat.png"></img></a></div></tr>
+        <tr>
+            <th><div id="trNone"><a id="none">none</a></div></th>
+            <th><div id="trFire"><a id="fire"><img src="images/fire.png"></img></a></div></th>
+            <th><div id="trHat"><a id="hat"><img src="images/hat.png"></img></a></div></th>
+        </tr>
     </table>
 </div>
+<div class="main">
 <h1>Welcome !</h1>
+</br>
+</br>
 </br>
     <form method="post" action="functions/submitfile.php" enctype="multipart/form-data" id="formfile">
         <input type="file" name="myfile"/>
@@ -23,5 +27,9 @@
     <button class="button" id="savebutton">Save</button>
     </br>
     <!-- <canvas id="canvas"></canvas> -->
+</div>
+<div class="right">
+    <table id="tmp"></table>
+</div>
 
 <script src="js/picture.js"></script>

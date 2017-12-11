@@ -1,7 +1,6 @@
 <?php 
     session_start();
     include("parts/header.php"); ?>
-<div class="centered">
     <?php   
         $home = "</br></br><a href=\"index.php\" class=\"button\">Back</a>";
         if (isset($_GET['msglogout'])) {
@@ -27,5 +26,5 @@
             }
         }
     ?>
-</div>
+
 <?php include("parts/footer.html"); ?>

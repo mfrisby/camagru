@@ -6,7 +6,6 @@
         <title>Camagru</title>
         <link rel="stylesheet" type="text/css" href="css/body.css">
         <link rel="stylesheet" type="text/css" href="css/header.css">
-        <link rel="stylesheet" type="text/css" href="css/sideBar.css">
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" type="text/css" href="css/alert.css">
     </head>
