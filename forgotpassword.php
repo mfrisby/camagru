@@ -68,6 +68,12 @@
         $req->execute(array('email' => $email));
         $req->closeCursor();
         $user = $req->fetch();
-        $_SESSION['user'] = $user;
+
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['password'] = $user['password'];
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['token'] = $user['token'];
+        $_SESSION['verified'] = $user['verified'];
     }
 ?>

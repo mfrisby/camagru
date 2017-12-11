@@ -19,7 +19,12 @@
         if (password_verify($password, $user['password'])){
             if ($user['verified'] == 'O') {
                 $_SESSION['signup_success'] = true;
-                $_SESSION['user'] = $user;
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['password'] = $user['password'];
+                $_SESSION['id'] = $user['id'];
+                $_SESSION['token'] = $user['token'];
+                $_SESSION['verified'] = $user['verified'];
                 header("Location: index.php");
             }
             else {

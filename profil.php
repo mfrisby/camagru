@@ -1,30 +1,35 @@
 <?php 
     session_start();
     include("parts/header.php");
+
+    if (isset($_SESSION['username']) AND isset($_SESSION['email'])) {  
+        echo "<div class=\"centered bordered\">";
+        echo "<h3>username: " . $_SESSION['username'] . "<h3>";
+        echo "<h3>email: " . $_SESSION['email']."<h3>";
+        echo "</div>";
+    }
+
     include("parts/profil.html");
     include("parts/footer.html");
-?>
 
-<?php
-    if (isset($_POST) AND isset($_POST['password']) AND isset($_SESSION['user'])) {
+    if (isset($_POST) AND isset($_POST['password'])) {
         require 'config/database.php';
         require 'functions/check_form.php';
         $password = $_POST['password'];
-        $user = $_SESSION['user'];
-
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if (password_verify($password, $user['password']))
+        if (password_verify($password, $_SESSION['password']))
         {
+            echo "ici";
             if (isset($_POST['valueP'])) {
                 $p = check_password($_POST['valueP'], $pdo);
                 if ($p != NULL) {
                     try {
+                        $userid = $_SESSION['id'];
                         $req = $pdo->prepare("UPDATE users SET password='{$p}' WHERE id=:id");
-                        $req->execute(array(':id' => $user['id']));
+                        $req->execute(array(':id' => $userid));
                         $req->closeCursor();
-                        $user = $_SESSION['user'];
-                        update_session($user['id']);
+                        update_session($userid);
                     }
                     catch (PDOException $e) {
                         echo(alert_form("password"));
@@ -37,11 +42,11 @@
             else if (isset($_POST['valueU'])) {
                 if (check_username($_POST['valueU'], $pdo) != NULL) {
                     try {
+                        $userid = $_SESSION['id'];
                         $req = $pdo->prepare("UPDATE users SET username='{$_POST['valueU']}' WHERE id=:id");
-                        $req->execute(array(':id' => $user['id']));
+                        $req->execute(array(':id' => $userid));
                         $req->closeCursor();
-                        $user = $_SESSION['user'];
-                        update_session($user['id']);
+                        update_session($userid);
                     }
                     catch (PDOException $e) {
                         echo(alert_form("username"));
@@ -55,11 +60,11 @@
                 $e = check_email($_POST['valueE'], $pdo);
                 if ($e != NULL) {
                     try {
+                        $userid = $_SESSION['id'];
                         $req = $pdo->prepare("UPDATE users SET email='{$e}' WHERE id=:id");
-                        $req->execute(array(':id' => $user['id']));
+                        $req->execute(array(':id' => $userid));
                         $req->closeCursor();
-                        $user = $_SESSION['user'];
-                        update_session($user['id']);
+                        update_session($userid);
                     }
                     catch (PDOException $e) {
                         echo(alert_form("email"));                    
@@ -69,7 +74,6 @@
                     echo(alert_form("email"));
                 }
             }
-
         }
         else {
             echo(alert_form("password"));
@@ -81,8 +85,26 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = $pdo->prepare("SELECT * FROM users WHERE id=:id");
         $req->execute(array('id' => $id));
-        $req->closeCursor();
         $user = $req->fetch();
-        $_SESSION['user'] = $user;
+        $req->closeCursor();
+        if(isset($_SESSION['username'])) {
+            $_SESSION['username'] = $user['username'];
+        }
+        if(isset($_SESSION['email'])) {
+            $_SESSION['email'] = $user['email'];
+        }
+        if(isset($_SESSION['password'])) {
+            $_SESSION['password'] = $user['password'];
+        }   
+        if(isset($_SESSION['id'])) {
+            $_SESSION['id'] = $user['id'];
+        }
+        if(isset($_SESSION['token'])) {
+            $_SESSION['token'] = $user['token'];
+        }
+        if(isset($_SESSION['verified'])) {
+            $_SESSION['verified'] = $user['verified'];
+        }
+        
     }
 ?>
