@@ -1,11 +1,4 @@
 (function() {
-
-/* 	var file = document.getElementById('formfile');
-	file.addEventListener('submit', function(ev){
-		saveFile();
-		ev.preventDefault();
-	}, false);
- */
 	var width = 400;
 	var height = 400;
 
@@ -15,10 +8,10 @@
 	var canvas = document.getElementById('canvas');
 	var photo = document.getElementById('photo');
 	var startbutton = document.getElementById('startbutton');
+	var context = canvas.getContext('2d');
 
-	width = 320,
-	height = 0;
-  
+	var img = new Image();
+
 	function startup() {
   
 		navigator.getMedia = (
@@ -30,20 +23,18 @@
 	  navigator.getMedia({
 		  video: true,
 		  audio: false
-		},
-		function(stream) {
-			if (navigator.mediaDevices.getUserMedia) {
-				video.mozSrcObject = stream;
-		  }
-		  else {
-				var vendorURL = window.URL || window.webkitURL;
-				video.src = vendorURL.createObjectURL(stream);
-		 	}
-			video.play();
-		},
-		function(err) {
+		},function(stream) {
+				if (navigator.mediaDevices.getUserMedia) {
+					video.mozSrcObject = stream;
+				}
+				else {
+					var vendorURL = window.URL || window.webkitURL;
+					video.src = vendorURL.createObjectURL(stream);
+				}
+				video.play();
+		},function(err) {
 		  console.log("An error occured! " + err);
-		} );
+		});
   
 	video.addEventListener('canplay', function(ev){
 		if (!streaming) {
@@ -56,37 +47,28 @@
 		}
 	}, false);
   
-	startbutton.addEventListener('click', function(ev){
-		takepicture();
-		ev.preventDefault();
-	}, false);
+		startbutton.addEventListener('click', function(ev){
+			takepicture();
+			ev.preventDefault();
+		}, false);
 
 	  savebutton.addEventListener('click', function(ev){
-		sendpicture();
+			sendpicture();
 		ev.preventDefault();
-	  }, false);
-	  
-	 // clearphoto();
-	}
-  
-/* 	function clearphoto() {
-	  var context = canvas.getContext('2d');
-	  context.fillStyle = "#AAA";
-	  context.fillRect(0, 0, canvas.width, canvas.height);
-  
-	  var data = canvas.toDataURL('image/png');
-	  photo.setAttribute('src', data);
-	} */
+		}, false);
   
 	function takepicture() {
 		var toto = document.getElementById("tmp");
 		var tr = document.createElement("tr");
 
-	  var context = canvas.getContext('2d');
 	  if (width && height) {
 			canvas.width = width;
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
+			img.onload = function() {
+				context.drawImage(img, 2, 2);
+			}
+			img.src = "images/Hat.png";
 			var data = canvas.toDataURL('image/png');
 			tr.innerHTML += "<tr><img src=\"" + data + "\"/></tr>";
 			toto.appendChild(tr);
@@ -96,19 +78,9 @@
 	  }
 	}
 
-	function sendpicture() {
-		
+	function sendpicture() {	
 		alert("coucou");
-	  }
-
+	}
+	}
 	window.addEventListener('load', startup, false);
 	})();
-	
-/* 	function saveFile() {
-    var form = document.forms.formfile;
-		var formData = new FormData(form);
-
-		var request = new XMLHttpRequest();
-		request.open("POST", "functions/submitfile.php");
-		request.send(new FormData(formData));
-	} */
