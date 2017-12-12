@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("parts/header.php");
+    include("parts/header.php"); 
 ?>
 <div class="centered">
     <?php
@@ -10,12 +10,10 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = $pdo->prepare("SELECT * FROM gallery");
         $req->execute();
-        $data = $req->fetch();
-        if ($data <= 0) {
-            echo 'La galerie est vide';
-        }
-        else {
-            echo 'La galerie n\'est pas vide.';
+        $arrayimg = [];
+        while ($data = $req->fetch()) {
+            $img = $data['img'];
+            echo "<img src=\"".$img."\"></img>";
         }
     ?>
 </div>
