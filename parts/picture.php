@@ -4,7 +4,6 @@
 <div class="left">
     <table id="imgs">
         <tr>
-            <th><div id="trNone"><a id="none">none</a></div></th>
             <th><div id="trFire"><a id="fire"><img src="images/fire.png"></img></a></div></th>
             <th><div id="trHat"><a id="hat"><img src="images/hat.png"></img></a></div></th>
         </tr>
@@ -23,10 +22,9 @@
     </br>
     <video style="width=400;height=400;" id="video"></video>
     </br>
-    <button class="button" id="startbutton">Shoot</button>
+    <button class="button" id="startbutton" disabled>Shoot</button>
     <button class="button" id="savebutton">Save</button>
     </br>
-    <!-- <canvas id="canvas"></canvas> -->
 </div>
 <div class="right">
     <table id="tmp"></table>

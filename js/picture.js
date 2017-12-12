@@ -16,7 +16,6 @@
 	var fire = document.getElementById('fire');
 	var hatborder = document.getElementById('trHat');
 	var fireborder = document.getElementById('trFire');
-	var noneborder = document.getElementById('trNone');
 
 	var array = [];
 
@@ -84,7 +83,7 @@
 		var len = array.length - 1;
 		var i = 0;
 		tmp.innerHTML = '';
-		while (i < 5) {
+		while (i < 5 && len > 0) {
 			var tr = document.createElement("tr");
 			tr.innerHTML += "<img src=\"" + array[len] + "\"/>";
 			tmp.appendChild(tr);
@@ -109,27 +108,18 @@
 		fire.addEventListener('click', function(ev){
 			path = "images/fire.png";
 			fireborder.style.border = "1px solid white";
-			noneborder.style.border = "none";
 			hatborder.style.border = "none";
+			startbutton.disabled = false;
 			ev.preventDefault();
 		}, false);
 
 		hat.addEventListener('click', function(ev){
 			path = "images/hat.png";
 			hatborder.style.border = "1px solid white";
-			noneborder.style.border = "none";
 			fireborder.style.border = "none";
+			startbutton.disabled = false;
 			ev.preventDefault();
 		}, false);
-
-		none.addEventListener('click', function(ev){
-			path = "";
-			hatborder.style.border = "none";
-			noneborder.style.border = "1px solid white";
-			fireborder.style.border = "none";
-			ev.preventDefault();
-		}, false);
-
 	}
 	window.addEventListener('load', startup, false);
 	})();
