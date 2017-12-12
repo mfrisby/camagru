@@ -2,7 +2,6 @@
     session_start();
     include("parts/header.php"); 
 ?>
-<div class="centered">
     <?php
         require_once 'config/database.php';
         
@@ -11,10 +10,22 @@
         $req = $pdo->prepare("SELECT * FROM gallery");
         $req->execute();
         $arrayimg = [];
+        $i = 0;
+        echo "<table class=\"gallerytableau\"><tr>";
         while ($data = $req->fetch()) {
+            if ($i == 4)
+            {
+                $i = 0;
+                echo "</tr><tr>";
+            }
             $img = $data['img'];
-            echo "<img src=\"".$img."\"></img>";
+            echo "<td><img src=\"".$img."\"></img>";
+            add_comment();
+            $i++;
+        }
+        echo "</table>";
+        function add_comment() {
+            echo "<input type=\"text\"></input><input type=\"submit\"></input></td>";
         }
     ?>
-</div>
 <?php include("parts/footer.html"); ?>
