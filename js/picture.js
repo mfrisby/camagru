@@ -64,7 +64,7 @@
 					img.onload = function() {
 						context.drawImage(img, 50, 0);
 						var data = canvas.toDataURL('image/png');
-						//save_picture();
+						save_picture(data);
 						array.push(data);
 					}
 					img.src = path;
@@ -84,19 +84,7 @@
 				len--;
 			}
 		}
-/* 		function save_picture() {
-			var file = canvas.toBlob(function(blob) {
-				var newImg = document.createElement('img'),
-					url = URL.createObjectURL(blob);
-			  
-				newImg.onload = function() {
-				  URL.revokeObjectURL(url);
-				};
-			  
-				newImg.src = url;
-				document.body.appendChild(newImg);
-			});
-			var form = new FormData(file);
+		function save_picture(dataurl) {
 			if (window.XMLHttpRequest) {
 				xmlhttp = new XMLHttpRequest();
 			} else {
@@ -107,9 +95,10 @@
 					alert(this.responseText);
 				}
 			};
-			xmlhttp.open("POST","submitfile.php",true);
-			xmlhttp.send(form);
-		} */
+			xmlhttp.open("POST","functions/submitfile.php");
+			xmlhttp.setRequestHeader("Content-Type",  "application/x-www-form-urlencoded");      
+			xmlhttp.send("img=" + dataurl);
+		}
 		function sendpicture() {	
 			alert("coucou");
 		}
