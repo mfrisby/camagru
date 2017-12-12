@@ -26,5 +26,4 @@
             }
         }
     ?>
-
 <?php include("parts/footer.html"); ?>

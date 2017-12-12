@@ -61,6 +61,12 @@ body {
     color: #0D0E13;
 }
 
+.button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+    
+}
+
 .centered {
     text-align: center;
     margin: 0 auto;
