@@ -6,25 +6,19 @@
     var uForm = document.querySelector('#usernameForm');
     var eForm = document.querySelector('#emailForm');
     password.addEventListener('click', function (event) {
-        if (pForm.style.display == "none") {
             pForm.style.display = "block";
             uForm.style.display = "none";
             eForm.style.display = "none";
-        }
     });
     username.addEventListener('click', function (event) {
-        if (uForm.style.display == "none") {            
             uForm.style.display = "block";
             pForm.style.display = "none";
             eForm.style.display = "none";
-        }
     });
     email.addEventListener('click', function (event) {
-        if (eForm.style.display == "none") {
             eForm.style.display = "block";
             uForm.style.display = "none";
             pForm.style.display = "none";
-        }
     });
     pForm.addEventListener('submit', function (event) {
         passwordSubmit();

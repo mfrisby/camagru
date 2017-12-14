@@ -1,35 +1,45 @@
-<div class="centered">        
-<a class="button signButton" id="signB">Sign up</a>
-<a class="button logButton" id="logB">Sign in</a>
-<div id="logdiv" style="display:none;">
-    <h1>
-        Sign in
-    </h1>
-    <form method="post" id="logform" action="login.php">
-        <input type="text" name="username" placeholder="username">
-        <input type="password" name="password" placeholder="password">
-        </br>
-        </br>
-        <input type="submit" class="button"></input>
-    </form>
-</div>
-<div id="signdiv" style="display:none;">
-    <h1>
-        Sign up
-    </h1>
-    <form method="post" id="signform" action="signin.php">
-        <input type="text" name="username" placeholder="username" required/>
-        <input type="text" name="email" placeholder="email" required/>
-        <input type="password" name="password" placeholder="password" required/>
-        </br>
-        </br>
-        <input type="submit" class="button"></input>
-    </form>     
-</div>
-</br>
-</br>
-</br>
-<a href="forgotpassword.php" >Forgot password?</a>
+<section class="section">
+    <div class="container">        
+        <div class="notification">
+        <div class="tabs is-centered">
+            <ul>
+                <li id="logB"><a>Sign in</a></li>
+                <li id="signB"><a>Sign up</a></li>
+                <li id="forgB"><a>Forgot password ?</a></li>
+            </ul>
+        </div>
+        <div id="logdiv" style="display:none;">
+            <h1 class="title">Sign in</h1>
+            <form method="post" id="logform" action="login.php">
+                <input class="input" type="text" name="username" placeholder="username">
+                <input class="input"  type="password" name="password" placeholder="password">
+                </br>
+                </br>
+                <input type="submit" class="button is-link"></input>
+            </form>
+        </div>
+        <div id="signdiv" style="display:none;">
+            <h1 class="title">Sign up</h1>
+            <form method="post" id="signform" action="signin.php">
+                <input class="input" type="text" name="username" placeholder="username" required/>
+                <input class="input" type="text" name="email" placeholder="email" required/>
+                <input class="input" type="password" name="password" placeholder="password" required/>
+                </br>
+                </br>
+                <input type="submit" class="button is-link"></input>
+            </form>     
+        </div>
 
+        <div id="forgdiv" style="display:none;">
+            <h1 class="title">Forgot password</h1>
+            <form id="forgotten" method="post" action="forgotpassword.php">
+                    <input class="input" type="text" name="email" placeholder="email" required/>
+                    </br>
+                    </br>
+                    <input type="submit" class="button is-link" value="Send me a new password!"></input>
+            </form>
+        </div>
+    </div>
 </div>
+</section>
 <script type="text/javascript" src="js/forms.js"></script>

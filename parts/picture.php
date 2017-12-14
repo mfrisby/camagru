@@ -1,33 +1,22 @@
-    </br>
-    </br>
-    </br>
-        <div class="left">
+<div class="level">
+        <div class="column">
             <table id="imgs">
-                <tr>
-                    <th><div id="trFire"><a id="fire"><img src="images/fire.png"></img></a></div></th>
-                    <th><div id="trHat"><a id="hat"><img src="images/hat.png"></img></a></div></th>
-                </tr>
+                <tr><div id="trFire"><a id="fire"><img src="images/fire.png"></img></a></div></tr>
+                <tr><th><div id="trHat"><a id="hat"><img src="images/hat.png"></img></a></div></tr>
+                <tr><th><div id="trBeer"><a id="beer"><img src="images/beer.png"></img></a></div></tr>
             </table>
         </div>
-
-        <div class="main">
-            <h1>Welcome !</h1>
-            </br>
-            </br>
-            </br>
-            <form method="post" action="functions/submitfile.php" enctype="multipart/form-data" id="formfile">
+        <div class="column">
+             <form method="post" action="functions/submitfile.php" enctype="multipart/form-data" >
                 <input type="file" name="myfile"/>
                 </br>
-                <input class="button" type="submit" name="submit" value="Send"/>
+                <input class="button is-link" type="submit" name="submit" value="Send"/>
             </form>
-            </br>
             <video style="width=400;height=400;" id="video"></video>
-            </br>
-            <button class="button" id="startbutton" disabled>Shoot</button>
-            <button class="button" id="savebutton">Save</button>
-            </br>
+            <button class="button is-link" id="startbutton" disabled>Shoot</button>
         </div>
-    <div class="right">
-        <table id="tmp"></table>
-    </div>
+        <div class="column">
+            <table id="tmp"></table>
+        </div>
+</div>
 <script src="js/picture.js"></script>

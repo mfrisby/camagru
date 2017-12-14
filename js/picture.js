@@ -14,11 +14,13 @@
 	var path = "";
 	var hat = document.getElementById('hat');
 	var fire = document.getElementById('fire');
+	var beer = document.getElementById('beer');
 	var hatborder = document.getElementById('trHat');
 	var fireborder = document.getElementById('trFire');
+	var beerborder = document.getElementById('trBeer');
 	var tmp = document.getElementById("tmp");
 
-	var array = [];
+	var formfile = document.getElementById('formFile');
 
 	function startup() {
   
@@ -56,7 +58,7 @@
 		}, false);
 	
 		function takepicture() {
-		if (width && height) {
+			if (width && height) {
 				canvas.width = width;
 				canvas.height = height;
 				context.drawImage(video, 0, 0, width, height);
@@ -65,50 +67,31 @@
 						context.drawImage(img, 50, 0);
 						var data = canvas.toDataURL('image/png');
 						save_picture(data);
-						array.push(data);
+						show_picture(data)
 					}
 					img.src = path;
 				}
-				show_array();
 			}
 		}
-		function show_array() {
-			var len = array.length - 1;
-			var i = 0;
-			tmp.innerHTML = '';
-			while (i < 5 && len > 0) {
+		function show_picture(data) {
 				var tr = document.createElement("tr");
-				tr.innerHTML += "<img src=\"" + array[len] + "\"/>";
+				tr.innerHTML += "<img src=\"" + data + "\"/>";
 				tmp.appendChild(tr);
-				i++;
 				len--;
-			}
 		}
 		function save_picture(dataurl) {
 			if (window.XMLHttpRequest) {
 				xmlhttp = new XMLHttpRequest();
 			} else {
 				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			xmlhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					alert(this.responseText);
-				}
 			};
 			xmlhttp.open("POST","functions/submitfile.php");
 			xmlhttp.setRequestHeader("Content-Type",  "application/x-www-form-urlencoded");      
 			xmlhttp.send("img=" + dataurl);
 		}
-		function sendpicture() {	
-			alert("coucou");
-		}
+
 		startbutton.addEventListener('click', function(ev){
 			takepicture();
-			ev.preventDefault();
-		}, false);
-
-		savebutton.addEventListener('click', function(ev){
-			sendpicture();
 			ev.preventDefault();
 		}, false);
 
@@ -116,6 +99,7 @@
 			path = "images/fire.png";
 			fireborder.style.border = "1px solid white";
 			hatborder.style.border = "none";
+			beerborder.style.border = "none";
 			startbutton.disabled = false;
 			ev.preventDefault();
 		}, false);
@@ -124,6 +108,16 @@
 			path = "images/hat.png";
 			hatborder.style.border = "1px solid white";
 			fireborder.style.border = "none";
+			beerborder.style.border = "none";
+			startbutton.disabled = false;
+			ev.preventDefault();
+		}, false);
+
+		beer.addEventListener('click', function(ev){
+			path = "images/beer.png";
+			beerborder.style.border = "1px solid white";
+			fireborder.style.border = "none";
+			hatborder.style.border = "none";
 			startbutton.disabled = false;
 			ev.preventDefault();
 		}, false);

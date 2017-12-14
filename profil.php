@@ -1,15 +1,16 @@
 <?php 
     session_start();
     include("parts/header.php");
+    include("parts/profil.html");
 
     if (isset($_SESSION['username']) AND isset($_SESSION['email'])) {  
-        echo "<div class=\"centered bordered\">";
-        echo "<h3>username: " . $_SESSION['username'] . "<h3>";
-        echo "<h3>email: " . $_SESSION['email']."<h3>";
+        echo "<div class=\"notification\">";
+        echo "<h3 class=\"title\">username: " . $_SESSION['username'] . "<h3>";
+        echo "<h3 class=\"title\">email: " . $_SESSION['email']."<h3>";
         echo "</div>";
     }
+    echo "</div></section>";
 
-    include("parts/profil.html");
     include("parts/footer.html");
 
     if (isset($_POST) AND isset($_POST['password'])) {

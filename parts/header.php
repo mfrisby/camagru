@@ -3,22 +3,25 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
         <title>Camagru</title>
-        <link rel="stylesheet" type="text/css" href="css/body.css">
-        <link rel="stylesheet" type="text/css" href="css/header.css">
-        <link rel="stylesheet" type="text/css" href="css/footer.css">
-        <link rel="stylesheet" type="text/css" href="css/alert.css">
-    </head>
-<HEADER>
-    <nav class="myNavbar">
-        <a href="index.php">Home</a>
-        <a href="galery.php">Galery</a>
-        <?php
-            if(isset($_SESSION['signup_success']))  {
-                echo "<a href=\"logout.php\" id=\"bRight\">Sign out</a>";
-                echo "<a href=\"profil.php\" id=\"bRight\">Profil</a>";
-            }
-        ?>
-    </nav>
+    <head>
+    <HEADER>
+        <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="index.php">Home</a>
+                    <a class="navbar-item" href="galery.php">Galery</a>
+                </div>
+                <div class="navbar-end">
+                <?php
+                    if(isset($_SESSION['signup_success']))  {
+                        echo "<a class=\"navbar-item\" href=\"profil.php\" id=\"bRight\">Profil</a>";
+                        echo "<a class=\"navbar-item\" href=\"logout.php\" id=\"bRight\">Sign out</a>";
+                    }
+                ?>
+                </div>
+            </div>
+        </nav>
 </HEADER>
 <body>

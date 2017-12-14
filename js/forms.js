@@ -1,23 +1,35 @@
-    var sign = document.querySelector('.signButton');
-    var log = document.querySelector('.logButton');
     var ldiv = document.querySelector('#logdiv');
     var sdiv = document.querySelector('#signdiv');
+    var fdiv = document.querySelector('#forgdiv');
+    var lb = document.querySelector('#logB');
+    var sb = document.querySelector('#signB');
+    var fb = document.querySelector('#forgB');
  /*    var lform = document.querySelector('#logform');
     var sform = document.querySelector('#signform'); */
 
-    sign.addEventListener('click', function (event) {
-        if (sdiv.style.display == "none") {
+    sb.addEventListener('click', function (event) {
             sdiv.style.display = "block";
             ldiv.style.display = "none";
-
-        }
+            fdiv.style.display = "none";
+            lb.className = "";
+            sb.className.classList.add("is-active");
+            fb.className = "";
     });
-    log.addEventListener('click', function (event) {
-        if (ldiv.style.display == "none") {
+    lb.addEventListener('click', function (event) {
             ldiv.style.display = "block";
             sdiv.style.display = "none";
-
-        }
+            fdiv.style.display = "none";
+        lb.className.classList.add("is-active");
+        fb.className = "";
+        sb.className = "";
+    });    
+    fb.addEventListener('click', function (event) {
+            ldiv.style.display = "none";
+            sdiv.style.display = "none";
+            fdiv.style.display = "block";
+            fb.className.classList.add('is-active');
+            sb.className = "";
+            lb.className = "";
     });
 /*     lform.addEventListener('submit', function (event) {
         

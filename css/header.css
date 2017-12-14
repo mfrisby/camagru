@@ -1,7 +1,6 @@
 .myNavbar {
     overflow: hidden;
     background-color:#0D0E13;
-    position: fixed;
     top: 0px;
     width: 100%;
     z-index: 1;

@@ -11,21 +11,26 @@
         $req->execute();
         $arrayimg = [];
         $i = 0;
-        echo "<table class=\"gallerytableau\"><tr>";
+        $index = 0;
+        echo "<table class=\"gallerytableau\"><thead><tr>";
         while ($data = $req->fetch()) {
-            if ($i == 4)
+            $index++;
+            if ($i == 5)
             {
                 $i = 0;
-                echo "</tr><tr>";
+                echo "</tr></thead><thead><tr>";
             }
             $img = $data['img'];
-            echo "<td><img src=\"".$img."\"></img>";
+            echo "<th><a class=\"imgclick\" id=\"".$index."\"><img src=\"".$img."\"></a></img>";
+            include("parts/comment.html");
             add_comment();
             $i++;
         }
         echo "</table>";
         function add_comment() {
-            echo "<input type=\"text\"></input><input type=\"submit\"></input></td>";
+            echo "<input type=\"text\"></input><input type=\"submit\"></input></th>";
         }
     ?>
 <?php include("parts/footer.html"); ?>
+
+<script src="js/gallery.js"></script>

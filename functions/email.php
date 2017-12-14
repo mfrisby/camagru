@@ -6,7 +6,6 @@
             $headers = "From: mowpy42@gmailcom" . "\r\n" .
             "Reply-To: mowpy42@gmailcom" . "\r\n" .
             "X-Mailer: PHP/" . phpversion();
-           
             mail($email, $subject, $msg, $headers);
         }
         catch (PDOException $e) {
