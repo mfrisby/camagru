@@ -7,7 +7,7 @@
         <title>Camagru</title>
     <head>
     <HEADER>
-        <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-link" role="navigation" aria-label="main navigation">
             <div class="navbar-menu">
                 <div class="navbar-start">
                     <a class="navbar-item" href="index.php">Home</a>
