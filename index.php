@@ -2,23 +2,20 @@
     session_start();
     include("parts/header.php"); ?>
     <?php   
-        $home = "</br></br><a href=\"index.php\" class=\"button\">Back</a>";
         if (isset($_GET['msglogout'])) {
-            echo "<h2 class=\"title\">You're not logged anymore.</h2>";
-            echo $home;
+            echo (alert("You're not logged anymore.", "is-success"));
+            include("parts/forms.html");
         }
         else if (isset($_GET['msglogerror'])) {
-            echo "<h2 class=\"title\">Login error, wrong password or username.</h2>";
-            echo $home;
+            echo (alert("Login error, wrong password or username.", "is-danger"));
+            include("parts/forms.html");
         }
         else if (isset($_GET['msglogverified'])) {
-            echo "<h2 class=\"title\">I send you a link by email.</br>Please validate your account.</h2>";
-            echo $home;
+            echo (alert("I send you a link by email. Please validate your account.", "is-warning"));
         }
         else if (isset($_SESSION['signup_success']))  {
             if (isset($_GET['fileupload'])) {
-                $s = alert("Upload succeed", "is-success");
-                echo $s;
+                echo (alert("Upload succeed", "is-success")); 
             }
             if (isset($_GET['noupload'])) {
                 echo (alert("Upload failed", "is-danger"));
@@ -26,10 +23,9 @@
             include("parts/picture.php");
         }
         else {
-            include("parts/forms.html");
-            if(isset($_GET['msgsign'] ) ) {
-                echo "<h2 class=\"title\">An email has been sent, please confirm your account and login.</h2>";
-                echo $home;
+            if(isset($_GET['msgsign'])) {
+                echo (alert("An email has been sent, please confirm your account and login.", "is-success"));
+                include("parts/forms.html");
             }
         }
         function alert($string, $type) {
