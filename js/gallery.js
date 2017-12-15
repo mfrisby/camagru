@@ -1,16 +1,14 @@
-var click =  document.querySelector('.imgclick');
-var close =  document.querySelector('#close');
+(function() {
+    var close = document.querySelector('.modal-close');
+    var modal =  document.querySelector('.modal');
 
-click.addEventListener('click', function (event) {
-    var id = click.id;
-    var modal = document.querySelector('.modal');
-    modal.classList.add("is-active");
-});
-
-close.addEventListener('click', function (event) {
-    var id = click.id;
-    var modal = document.querySelector('.modal');
-    if (this.classList.contains('is-active')) {
-       modal.classList.remove('is-active');
+    close.addEventListener('click', function (event) {
+        modal.classList.remove("is-active");
+    });
+    var table = document.getElementById("gallerytableau").rows;
+    for(var i = 0; i < table.length; i++) {
+        table[i].onclick = function() {
+        modal.classList.add("is-active");
+       };
     }
-});
+})();
