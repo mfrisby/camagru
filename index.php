@@ -25,8 +25,8 @@
         else {
             if(isset($_GET['msgsign'])) {
                 echo (alert("An email has been sent, please confirm your account and login.", "is-success"));
-                include("parts/forms.html");
             }
+            include("parts/forms.html");            
         }
         function alert($string, $type) {
             $s = "<section class=\"hero ".$type."\"><div class=\"hero-body container\">".$string."</div></section>";

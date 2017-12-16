@@ -64,7 +64,7 @@
 				context.drawImage(video, 0, 0, width, height);
 				if (path != "") {
 					img.onload = function() {
-						context.drawImage(img, 50, 0);
+						context.drawImage(img, 0, 0);
 						var data = canvas.toDataURL('image/png');
 						save_picture(data);
 						show_picture(data)
