@@ -63,5 +63,6 @@
         $_SESSION['id'] = $user['id'];
         $_SESSION['token'] = $user['token'];
         $_SESSION['verified'] = $user['verified'];
+        $_SESSION['comment'] = $user['comment'];
     }
 ?>

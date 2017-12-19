@@ -2,23 +2,34 @@
     var password = document.querySelector('#password');
     var username = document.querySelector('#username');
     var email = document.querySelector('#email');
+    var notif = document.querySelector('#notif');
     var pForm = document.querySelector('#passwordForm');
     var uForm = document.querySelector('#usernameForm');
     var eForm = document.querySelector('#emailForm');
+    var nForm = document.querySelector('#notifForm');
     password.addEventListener('click', function (event) {
             pForm.style.display = "block";
             uForm.style.display = "none";
             eForm.style.display = "none";
+            nForm.style.display = "none";
     });
     username.addEventListener('click', function (event) {
             uForm.style.display = "block";
             pForm.style.display = "none";
             eForm.style.display = "none";
+            nForm.style.display = "none";
     });
     email.addEventListener('click', function (event) {
             eForm.style.display = "block";
             uForm.style.display = "none";
             pForm.style.display = "none";
+            nForm.style.display = "none";
+    });
+    notif.addEventListener('click', function (event) {
+        eForm.style.display = "none";
+        uForm.style.display = "none";
+        pForm.style.display = "none";
+        nForm.style.display = "block";
     });
     pForm.addEventListener('submit', function (event) {
         passwordSubmit();
@@ -28,6 +39,9 @@
     });
     eForm.addEventListener('submit', function (event) {
         emailSubmit();
+    });
+    nForm.addEventListener('submit', function (event) {
+        notifSubmit();
     });
 })();
 
@@ -50,6 +64,13 @@ function emailSubmit() {
     var formData = new FormData(form);
     var password = formData.get('password');
     var value = formData.get('valueE');
+    ajaxRequest(formData);
+}
+function notifSubmit() {
+    var form = document.forms.emailForm;
+    var formData = new FormData(form);
+    var password = formData.get('password');
+    var value = formData.get('valueN');
     ajaxRequest(formData);
 }
 

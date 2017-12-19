@@ -2,11 +2,13 @@
     session_start();
     include("parts/header.php");
     include("parts/profil.html");
+    if (isset($_SESSION['username']) AND isset($_SESSION['email']) AND isset($_SESSION['comment'])) {  
 
-    if (isset($_SESSION['username']) AND isset($_SESSION['email'])) {  
+        $notif = $_SESSION['comment'] == "O" ? 'YES' : 'NO';
         echo "<div class=\"notification\">";
         echo "<h3 class=\"title\">username: " . $_SESSION['username'] . "<h3>";
         echo "<h3 class=\"title\">email: " . $_SESSION['email']."<h3>";
+        echo "<h3 class=\"title\">Comment notification: " . $notif."<h3>";
         echo "</div>";
     }
     echo "</div></section>";
@@ -21,7 +23,6 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if (password_verify($password, $_SESSION['password']))
         {
-            echo "ici";
             if (isset($_POST['valueP'])) {
                 $p = check_password($_POST['valueP'], $pdo);
                 if ($p != NULL) {
@@ -75,6 +76,24 @@
                     echo(alert_form("email"));
                 }
             }
+            else if (isset($_POST['valueN'])) {
+                $e = $_POST['valueN'] == 'yes' ? 'O' : 'N';
+                if ($e != NULL) {
+                    try {
+                        $userid = $_SESSION['id'];
+                        $req = $pdo->prepare("UPDATE users SET comment='{$e}' WHERE id=:id");
+                        $req->execute(array(':id' => $userid));
+                        $req->closeCursor();
+                        update_session($userid);
+                    }
+                    catch (PDOException $e) {
+                        echo(alert_form("email"));                    
+                    }
+                }
+                else {
+                    echo(alert_form("email"));
+                }
+            }
         }
         else {
             echo(alert_form("password"));
@@ -106,6 +125,8 @@
         if(isset($_SESSION['verified'])) {
             $_SESSION['verified'] = $user['verified'];
         }
-        
+        if(isset($_SESSION['comment'])) {
+            $_SESSION['comment'] = $user['comment'];
+        }
     }
 ?>

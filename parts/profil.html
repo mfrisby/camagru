@@ -7,6 +7,7 @@
                     <li><a id="password">Password</a></li>
                     <li><a id="username">Username</a></li>
                     <li><a id="email">Email</a></li>
+                    <li><a id="notif">Notification</a></li>
                 </ul>
             </div>
             <form id="passwordForm" style="display:none;" method="post" action="">
@@ -30,6 +31,18 @@
             <form id="emailForm" style="display:none;" method="post" action="">
                 <h1>Email</h1>
                 <input class="input" type="text" name="valueE" placeholder="new email" required/>
+                <input class="input" type="password" name="password" placeholder="password" required/>
+                </br>
+                </br>
+                <input type="submit" class="button"></input>
+            </form>
+            <form id="notifForm" style="display:none;" method="post" action="">
+                <h1>Notification</h1>
+                <select name="valueN" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+               <!--  <input type="checkbox" name="valueN" placeholder="receive notification" required /> -->
                 <input class="input" type="password" name="password" placeholder="password" required/>
                 </br>
                 </br>
