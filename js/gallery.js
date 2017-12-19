@@ -2,7 +2,6 @@
     var close = document.querySelector('.my-close');
     var modal =  document.querySelector('.modal');
     var modalcontent = document.getElementById('modalcontent');
-    var imgid = "";
 
     close.addEventListener('click', function (event) {
         modal.classList.remove("is-active");
@@ -16,7 +15,6 @@
         });
     }
     function get_comment(id) {
-        imgid = id;
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
@@ -31,7 +29,7 @@
                }
             }
         };
-        xmlhttp.open("GET","getcomments.php?id=" + imgid);
+        xmlhttp.open("GET","functions/getcomments.php?id=" + id);
         xmlhttp.send();
     }
 })();

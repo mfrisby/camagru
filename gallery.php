@@ -3,13 +3,16 @@
     include("parts/header.php");
     
     if (isset($_GET['m1'])) {
-      echo (alert("You must be log to post a comment.", "is-warning"));
+      echo (alert("Please loggin or signin to do that.", "is-warning"));
     }
     else if (isset($_GET['m2'])) {
-      echo (alert("You post a comment.", "is-success"));
+      echo (alert("You successfully comment a picture.", "is-success"));
     }
     else if (isset($_GET['m3'])) {
       echo (alert("Something went wrong.", "is-danger"));
+    }
+    else if (isset($_GET['m4'])) {
+      echo (alert("You successfully like a picture.", "is-success"));
     }
         require_once 'config/database.php';
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -41,16 +44,27 @@
                   Phasellus nec iaculis mauris.
                   <br>
                   <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>
-                  <form method=\"post\" class=\"myform\" id=\"$id\" action=\"postcomments.php\">
-                    <input class=\"input\" type=\"text\" name=\"text\" required>
+                  <form class=\"field has-addons\" method=\"post\" action=\"functions/postcomments.php\">
+                  <div class=\"control\">
                     <input name=\"imgid\" value=\"$id\" hidden>
-                    <input type=\"submit\" value=\"send\" class=\"button is-link\">
-                  </form>
+                    <input name=\"text\" class=\"input\" type=\"text\" placeholder=\"Comment\">
+                  </div>
+                  <div class=\"control\">
+                    <input type=\"submit\" value=\"Send\" class=\"button is-info\">
+                  </div>
+                </form>
                 </div>
               </div>
-            </div>";
+              <footer class=\"card-footer\">
+              </span>
+              <span class=\"card-footer-item\">
+              10
+              </span>
+              <a class=\"card-footer-item\" method=\"post\" href=\"functions/like.php?img=$id \">
+                Like
+              </a>
+              </div>";
         }
-      
 ?>
 <div class="modal">
           <div class="modal-background"></div>

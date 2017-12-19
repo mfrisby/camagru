@@ -26,7 +26,7 @@
             `comment` VARCHAR(1) NOT NULL DEFAULT 'O'
           )";
         $pdo->exec($req);
-        echo "TABLE users created.";
+        echo "TABLE users created.\n";
     }
     catch (PDOException $e) {
         echo "ERROR CREATING DB\n" . $e . "\n";
