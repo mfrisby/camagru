@@ -22,7 +22,8 @@
             `email` VARCHAR(100) NOT NULL,
             `password` VARCHAR(255) NOT NULL,
             `token` VARCHAR(50) NOT NULL,
-            `verified` VARCHAR(1) NOT NULL DEFAULT 'N'
+            `verified` VARCHAR(1) NOT NULL DEFAULT 'N',
+            `comment` VARCHAR(1) NOT NULL DEFAULT 'O'
           )";
         $pdo->exec($req);
         echo "TABLE users created.";
