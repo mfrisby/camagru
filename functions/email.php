@@ -26,4 +26,18 @@
             echo "SEND MAIL ERROR: ".$e->getMessage();
         }
     }
+    function sendComment($email) {
+        try {
+            $subject = "Camagru - Comment";
+            $msg = "One of your picture got a comment. Hell yeah.";
+            $headers = "From: mowpy42@gmailcom" . "\r\n" .
+            "Reply-To: mowpy42@gmailcom" . "\r\n" .
+            "X-Mailer: PHP/" . phpversion();
+           
+            mail($email, $subject, $msg, $headers);
+        }
+        catch (PDOException $e) {
+            echo "SEND MAIL ERROR: ".$e->getMessage();
+        }
+    }
     ?>
