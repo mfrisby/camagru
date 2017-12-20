@@ -19,14 +19,15 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $req = $pdo->prepare("SELECT * FROM gallery");
         $req->execute();
-        $index = 0;
+        $data = $req->fetchAll();
+        $req->closeCursor();
         echo "<div id=\"gallerytableau\">";
-        while ($data = $req->fetch()) {
-            $index++;
-            add_card($data['img'], $data['id']);
+        foreach ($data as $elem) {
+            $like = get_like($elem['id'], $pdo);
+            add_card($elem['img'], $elem['id'], $like);
         }
         echo "</div>";
-        function add_card($img, $id) {
+        function add_card($img, $id, $like) {
           echo "<div class=\"card gallery\">
               <div class=\"card-image\" id=\"$id\">
                 <figure class=\"image is-4by3\">
@@ -58,12 +59,20 @@
               <footer class=\"card-footer\">
               </span>
               <span class=\"card-footer-item\">
-              10
+              $like
               </span>
               <a class=\"card-footer-item\" method=\"post\" href=\"functions/like.php?img=$id \">
                 Like
               </a>
               </div>";
+        }
+        function get_like($id, $pdo) {
+          $like = 'like';
+          $req = $pdo->prepare('SELECT * FROM `like` WHERE galleryid=:galleryid');
+          $req->execute(array(':galleryid' => $id));
+          $c = count($req->fetchAll());
+          $req->closeCursor();
+          return ($c);
         }
 ?>
 <div class="modal">
