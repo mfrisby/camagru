@@ -1,20 +1,16 @@
-div.gallery {
+
+div.mycard {
     margin: 5px;
     border: 1px solid #ccc;
-    float: left;
      width: 300px;
+     display: inline-block;
 }
 
-div.gallery:hover {
+div.mycard:hover {
     border: 1px solid #777;
 }
 
-div.gallery img {
+.mycard img {
     width: 100%;
     height: auto;
-}
-
-div.desc {
-    padding: 15px;
-    text-align: center;
 }

@@ -28,12 +28,12 @@
         }
         echo "</div>";
         function add_card($img, $id, $like) {
-          echo "<div class=\"card gallery\">
+          echo "<div class=\"card mycard\">
               <div class=\"card-image\" id=\"$id\">
                 <figure class=\"image is-4by3\">
-                  <img src=\"$img\" >
+                  <img src=\"$img\">
                 </figure>
-              </div>
+                 </div>
               <div class=\"card-content\">
                 <div class=\"media\">
                   <div class=\"media-content\">
@@ -61,7 +61,7 @@
               <span class=\"card-footer-item\">
               $like
               </span>
-              <a class=\"card-footer-item\" method=\"post\" href=\"functions/like.php?img=$id \">
+              <a class=\"card-footer-item\" method=\"post\" href=\"functions/like.php?img=$id\">
                 Like
               </a>
               </div>";
