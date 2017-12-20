@@ -3,11 +3,13 @@
     include("parts/header.php");
     include("parts/profil.html");
     if (isset($_SESSION['username']) AND isset($_SESSION['email']) AND isset($_SESSION['comment'])) {  
-
-        $notif = $_SESSION['comment'] == "O" ? 'YES' : 'NO';
+        $comment = htmlspecialchars($_SESSION['comment']);
+        $email = htmlspecialchars($_SESSION['email']);
+        $username = htmlspecialchars($_SESSION['username']);
+        $notif = $comment == "O" ? 'YES' : 'NO';
         echo "<div class=\"notification\">";
-        echo "<h3 class=\"title\">username: " . $_SESSION['username'] . "<h3>";
-        echo "<h3 class=\"title\">email: " . $_SESSION['email']."<h3>";
+        echo "<h3 class=\"title\">username: " . $username . "<h3>";
+        echo "<h3 class=\"title\">email: " . $email."<h3>";
         echo "<h3 class=\"title\">Comment notification: " . $notif."<h3>";
         echo "</div>";
     }
@@ -15,16 +17,16 @@
 
     include("parts/footer.html");
 
-    if (isset($_POST) AND isset($_POST['password'])) {
+    if (isset($_POST['password'])) {
         require 'config/database.php';
         require 'functions/check_form.php';
-        $password = $_POST['password'];
+        $password = htmlspecialchars($_POST['password']);
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if (password_verify($password, $_SESSION['password']))
         {
             if (isset($_POST['valueP'])) {
-                $p = check_password($_POST['valueP'], $pdo);
+                $p = check_password(htmlspecialchars($_POST['valueP']), $pdo);
                 if ($p != NULL) {
                     try {
                         $userid = $_SESSION['id'];
@@ -42,10 +44,11 @@
                 }
             }
             else if (isset($_POST['valueU'])) {
-                if (check_username($_POST['valueU'], $pdo) != NULL) {
+                $username = htmlspecialchars($_POST['valueU']);
+                if (check_username($vu, $pdo) != NULL) {
                     try {
                         $userid = $_SESSION['id'];
-                        $req = $pdo->prepare("UPDATE users SET username='{$_POST['valueU']}' WHERE id=:id");
+                        $req = $pdo->prepare("UPDATE users SET username='{$username]' WHERE id=:id");
                         $req->execute(array(':id' => $userid));
                         $req->closeCursor();
                         update_session($userid);
@@ -59,7 +62,7 @@
                 }
             }
             else if (isset($_POST['valueE'])) {
-                $e = check_email($_POST['valueE'], $pdo);
+                $e = check_email(htmlspecialchars($_POST['valueE']), $pdo);
                 if ($e != NULL) {
                     try {
                         $userid = $_SESSION['id'];
@@ -77,10 +80,10 @@
                 }
             }
             else if (isset($_POST['valueN'])) {
-                $e = $_POST['valueN'] == 'yes' ? 'O' : 'N';
+                $e = htmlspecialchars($_POST['valueN']) == 'yes' ? 'O' : 'N';
                 if ($e != NULL) {
                     try {
-                        $userid = $_SESSION['id'];
+                        $userid = htmlspecialchars($_SESSION['id']);
                         $req = $pdo->prepare("UPDATE users SET comment='{$e}' WHERE id=:id");
                         $req->execute(array(':id' => $userid));
                         $req->closeCursor();

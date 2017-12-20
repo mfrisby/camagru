@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_GET['id'])){
-        $id = $_GET['id'];
+        $id = htmlspecialchars($_GET['id']);
         require_once '../config/database.php';
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

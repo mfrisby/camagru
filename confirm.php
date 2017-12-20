@@ -4,8 +4,8 @@
 <div class="centered">
     <?php
         if (isset($_GET['token']) AND isset($_GET['id'])) {
-            $token = $_GET['token'];
-            $userid = $_GET['id'];
+            $token = htmlspecialchars($_GET['token']);
+            $userid = htmlspecialchars($_GET['id']);
             if (check_token($userid, $token) == 1)
                 echo "You're one of us now !";
             else {

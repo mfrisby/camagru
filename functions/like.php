@@ -3,8 +3,8 @@
     $msg = "";
     if (isset($_SESSION['id'])) {
         if (isset($_GET['img'])){
-            $imgid = $_GET['img'];
-            $userid = $_SESSION['id'];
+            $imgid = htmlspecialchars($_GET['img']);
+            $userid = htmlspecialchars($_SESSION['id']);
             try {
                 require_once '../config/database.php';
                 $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
