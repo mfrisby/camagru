@@ -39,8 +39,7 @@
         $req = "CREATE TABLE `gallery` (
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `userid` INT(11) NOT NULL,
-          `img` VARCHAR(100) NOT NULL,
-          FOREIGN KEY (userid) REFERENCES users(id)
+          `img` VARCHAR(100) NOT NULL
         )";
         $pdo->exec($req);
         echo "Table gallery created successfully\n";
@@ -55,9 +54,7 @@ try {
         $req = "CREATE TABLE `like` (
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `userid` INT(11) NOT NULL,
-          `galleryid` INT(11) NOT NULL,
-          FOREIGN KEY (userid) REFERENCES users(id),
-          FOREIGN KEY (galleryid) REFERENCES gallery(id)
+          `galleryid` INT(11) NOT NULL
         )";
         $pdo->exec($req);
         echo "Table like created successfully\n";
@@ -73,9 +70,7 @@ try {
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `userid` INT(11) NOT NULL,
           `galleryid` INT(11) NOT NULL,
-          `comment` VARCHAR(255) NOT NULL,
-          FOREIGN KEY (userid) REFERENCES users(id),
-          FOREIGN KEY (galleryid) REFERENCES gallery(id)
+          `comment` VARCHAR(255) NOT NULL
         )";
         $pdo->exec($req);
         echo "Table comment created successfully\n";
