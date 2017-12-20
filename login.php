@@ -2,8 +2,8 @@
     session_start();
     require_once 'config/database.php';
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
     
     try {
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);

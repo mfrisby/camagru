@@ -5,51 +5,54 @@
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (!empty($_POST))
     {
+        $username = htmlspecialchars($_POST['username']);
+        $email = strtolower(htmlspecialchars($_POST['email']));
+        $password = htmlspecialchars($_POST['password']);
         $errors = array();
-        if (empty($_POST['username']) OR strlen($_POST['username']) < 3) {
+        if (empty($username) OR strlen($username) < 3) {
             $errors['username'] = "username invalide.";
         }
         else {
             $req = $pdo->prepare('SELECT id FROM users WHERE username = ?');
-            $req->execute([$_POST['username']]);
+            $req->execute(array($username));
             $user = $req->fetch();
             if ($user) {
                 $errors['username'] = "Username already exist.";
             }
         }
-        $username = $_POST['username'];
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = "Email invalide.";
         }
         else {
             $req = $pdo->prepare('SELECT id FROM users WHERE email = ?');
-            $req->execute([$_POST['email']]);
-            $email = $req->fetch();
-            if ($email) {
+            $req->execute($email);
+            $resp = $req->fetch();
+            if ($resp) {
                 $errors['email'] = "Email already exist.";
             }
         }
-        $email = strtolower($_POST['email']);
-        if (empty($_POST['password']) OR strlen($_POST['password']) < 3) {
+        if (empty($password) OR strlen($password) < 3) {
             $errors['password'] = "Mot de passe invalide";
         }
-        $password =  password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $password =  password_hash($password, PASSWORD_DEFAULT);
         if (!empty($errors)) {
             echo "<div class=\"alert\">";
             foreach ($errors as $error) {
                 echo ($error) . "\n";
             }
-            echo "</div>";
-            return (-1);
+            header("Location: index.php?msgsignfailed");
         }
-        try {
-            $req = $pdo->prepare("INSERT INTO users (username, email, password, token) VALUES (:username, :email, :password, :token)");
-            $token = uniqid(rand(), true);
-            $req->execute(array(':username' => $username, ':email' => $email, ':password' => $password, ':token' => $token));
-            sendVerifMail($email, $token, $pdo->lastInsertId());
+        else {
+            try {
+                $req = $pdo->prepare("INSERT INTO users (username, email, password, token) VALUES (:username, :email, :password, :token)");
+                $token = uniqid(rand(), true);
+                $req->execute(array(':username' => $username, ':email' => $email, ':password' => $password, ':token' => $token));
+                sendVerifMail($email, $token, $pdo->lastInsertId());
+            }
+            catch (PDOException $e) {
+                $_SESSION['error'] = "CREATE USER ERROR: ".$e->getMessage();
+                header("Location: index.php?msgsignfailed");
+            }
+            header("Location: index.php?msgsign");
         }
-        catch (PDOException $e) {
-            $_SESSION['error'] = "CREATE USER ERROR: ".$e->getMessage();
-        }
-        header("Location: index.php?msgsign");
 }

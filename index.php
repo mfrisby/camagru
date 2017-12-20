@@ -26,6 +26,9 @@
             if(isset($_GET['msgsign'])) {
                 echo (alert("An email has been sent, please confirm your account and login.", "is-success"));
             }
+            if(isset($_GET['msgsignfailed'])) {
+                echo (alert("Something went wrong, try signup again.", "is-danger"));
+            }
             include("parts/forms.html");            
         }
         function alert($string, $type) {

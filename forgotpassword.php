@@ -4,7 +4,7 @@
     require ("functions/email.php");
     if (isset($_POST['email'])) {
         if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            resetPassword($_POST['email']);
+            resetPassword(htmlspecialchars($_POST['email']));
         }
         else {
             echo "<div class=\"alert\">Wrong email</div>";

@@ -3,9 +3,9 @@
     $msg = "";
     if (isset($_SESSION['id'])) {
         if (isset($_POST['text']) AND isset($_POST['imgid'])){
-            $imgid = $_POST['imgid'];
-            $text = $_POST['text'];
-            $userid = $_SESSION['id'];
+            $imgid = htmlspecialchars($_POST['imgid']);
+            $text = htmlspecialchars($_POST['text']);
+            $userid = htmlspecialchars($_SESSION['id']);
             try {
                 require_once '../config/database.php';
                 $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
