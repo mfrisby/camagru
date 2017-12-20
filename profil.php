@@ -48,7 +48,7 @@
                 if (check_username($vu, $pdo) != NULL) {
                     try {
                         $userid = $_SESSION['id'];
-                        $req = $pdo->prepare("UPDATE users SET username='{$username]' WHERE id=:id");
+                        $req = $pdo->prepare("UPDATE users SET username='{$username}' WHERE id=:id");
                         $req->execute(array(':id' => $userid));
                         $req->closeCursor();
                         update_session($userid);
