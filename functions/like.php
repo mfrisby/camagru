@@ -12,7 +12,6 @@
 
                 $req = $pdo->prepare("INSERT INTO `like` (userid, galleryid) VALUES (:userid, :galleryid)");
                 $req->execute(array(':userid' => $userid, ":galleryid" => $imgid));
-                $req->execute();
                 $req->closeCursor();
 
                 $msg = "m4";
