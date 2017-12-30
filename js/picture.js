@@ -22,6 +22,15 @@
 	var beerborder = document.getElementById('trBeer');
 	var tmp = document.getElementById("tmp");
 
+
+	var buttonL = document.getElementById('buttonLeft');
+	var buttonD = document.getElementById('buttonDown');
+	var buttonR = document.getElementById('buttonRight');
+	var buttonU = document.getElementById('buttonUp');
+
+	var pngX = 0;
+	var pngY = 0;
+
 	var formfile = document.getElementById('formFile');
 
 	function startup() {
@@ -104,36 +113,86 @@
  */
 
 		fire.addEventListener('click', function(ev){
+			if (path == "images/fire.png") {
+				return ;
+			}
 			path = "images/fire.png";
 			fireborder.style.border = "1px solid white";
 			hatborder.style.border = "none";
 			beerborder.style.border = "none";
 			startbutton.disabled = false;
-
-			draw_png(path);
+			img.onload = function() {
+				draw_png(path);
+			}
+			img.src = path;
 			ev.preventDefault();
 		}, false);
 
 		hat.addEventListener('click', function(ev){
+			if (path == "images/hat.png") {
+				return ;
+			}
 			path = "images/hat.png";
 			hatborder.style.border = "1px solid white";
 			fireborder.style.border = "none";
 			beerborder.style.border = "none";
 			startbutton.disabled = false;
-			draw_png(path);
+			img.onload = function() {
+				draw_png(path);
+			}
+			img.src = path;
 			ev.preventDefault();
 		}, false);
 
 		beer.addEventListener('click', function(ev){
+			if (path == "images/beer.png") {
+				return ;
+			}
 			path = "images/beer.png";
 			beerborder.style.border = "1px solid white";
 			fireborder.style.border = "none";
 			hatborder.style.border = "none";
 			startbutton.disabled = false;
-			draw_png(path);
+			img.onload = function() {
+				draw_png(path);
+			}
+			img.src = path;
 			ev.preventDefault();
 		}, false);
 
+		/**
+		 * MOVE PNG
+		 */
+
+ 	
+
+		buttonD.addEventListener('click', function(ev){
+			if (pngY < height) {
+				pngY += 10;
+			}
+			ev.preventDefault();
+		}, false);
+
+		buttonR.addEventListener('click', function(ev){	
+			if (pngX < width) {
+				pngX += 10;
+			}
+			ev.preventDefault();
+		}, false);
+
+		buttonL.addEventListener('click', function(ev){
+			if (pngX > 0) {
+				pngX -= 10;
+			}
+			ev.preventDefault();
+		}, false);
+
+		buttonU.addEventListener('click', function(ev){
+			if (pngY > 0) {
+				pngY -= 10;
+			}
+			ev.preventDefault();
+		}, false);
 		/**
 		 * 
 		 * VIDEO DRAW 
@@ -146,13 +205,10 @@
 			})();
 		}
 		function draw_png(path) {
-			img.onload = function() {
 				(function loop() {
-					videoContext.drawImage(img, 0, 0);
+					videoContext.drawImage(img, pngX, pngY);
 					setTimeout(loop, 1000 / 30); // drawing at 30fps
 				})();
-			}
-			img.src = path;
 		}
 	}
 	window.addEventListener('load', startup, false);

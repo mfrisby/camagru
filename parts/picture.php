@@ -12,8 +12,13 @@
                 </br>
                 <input class="button is-link" type="submit" name="submit" value="Send"/>
             </form>
-            <canvas id="videoCanvas">
-            </canvas>
+            <canvas id="videoCanvas"></canvas>
+
+            <input type="image" src="images/arrow_left.png" id="buttonLeft"></input>
+            <input type="image" src="images/arrow_down.png" id="buttonDown"></input>
+            <input type="image" src="images/arrow_up.png" id="buttonUp"></input>
+            <input type="image" src="images/arrow_right.png" id="buttonRight"></input>
+
             <video style="width=400;height=400;" id="video" hidden></video>
             <button class="button is-link" id="startbutton" disabled>Shoot</button>
         </div>
