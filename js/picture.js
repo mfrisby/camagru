@@ -5,10 +5,12 @@
 	var streaming = false;
   
 	var video = document.getElementById('video');
+	var videoCanvas = document.getElementById('videoCanvas');
 	var canvas = document.createElement("canvas");
 	var photo = document.getElementById('photo');
 	var startbutton = document.getElementById('startbutton');
 	var context = canvas.getContext('2d');
+	var videoContext = videoCanvas.getContext('2d');
 
 	var img = new Image();
 	var path = "";
@@ -53,6 +55,9 @@
 				video.setAttribute('height', height);
 				canvas.setAttribute('width', width);
 				canvas.setAttribute('height', height);
+				videoCanvas.setAttribute('width', width);
+				videoCanvas.setAttribute('height', height);
+				draw_video();
 				streaming = true;
 			}
 		}, false);
@@ -66,7 +71,7 @@
 					img.onload = function() {
 						context.drawImage(img, 0, 0);
 						var data = canvas.toDataURL('image/png');
-						save_picture(data);
+						save_picture(data, path);
 						show_picture(data)
 					}
 					img.src = path;
@@ -77,9 +82,8 @@
 				var tr = document.createElement("tr");
 				tr.innerHTML += "<img src=\"" + data + "\"/>";
 				tmp.appendChild(tr);
-				len--;
 		}
-		function save_picture(dataurl) {
+		function save_picture(dataurl, path) {
 			if (window.XMLHttpRequest) {
 				xmlhttp = new XMLHttpRequest();
 			} else {
@@ -87,7 +91,7 @@
 			};
 			xmlhttp.open("POST","functions/submitfile.php");
 			xmlhttp.setRequestHeader("Content-Type",  "application/x-www-form-urlencoded");      
-			xmlhttp.send("img=" + dataurl);
+			xmlhttp.send("img=" + dataurl + "filter=" + path);
 		}
 
 		startbutton.addEventListener('click', function(ev){
@@ -95,12 +99,18 @@
 			ev.preventDefault();
 		}, false);
 
+/**
+ * IMAGE PNG EVENT
+ */
+
 		fire.addEventListener('click', function(ev){
 			path = "images/fire.png";
 			fireborder.style.border = "1px solid white";
 			hatborder.style.border = "none";
 			beerborder.style.border = "none";
 			startbutton.disabled = false;
+
+			draw_png(path);
 			ev.preventDefault();
 		}, false);
 
@@ -110,6 +120,7 @@
 			fireborder.style.border = "none";
 			beerborder.style.border = "none";
 			startbutton.disabled = false;
+			draw_png(path);
 			ev.preventDefault();
 		}, false);
 
@@ -119,8 +130,30 @@
 			fireborder.style.border = "none";
 			hatborder.style.border = "none";
 			startbutton.disabled = false;
+			draw_png(path);
 			ev.preventDefault();
 		}, false);
+
+		/**
+		 * 
+		 * VIDEO DRAW 
+		 */
+
+		function draw_video() {
+			(function loop() {
+				videoContext.drawImage(video, 0, 0, width, height);
+			setTimeout(loop, 1000 / 30); // drawing at 30fps
+			})();
+		}
+		function draw_png(path) {
+			img.onload = function() {
+				(function loop() {
+					videoContext.drawImage(img, 0, 0);
+					setTimeout(loop, 1000 / 30); // drawing at 30fps
+				})();
+			}
+			img.src = path;
+		}
 	}
 	window.addEventListener('load', startup, false);
 	})();

@@ -12,7 +12,9 @@
                 </br>
                 <input class="button is-link" type="submit" name="submit" value="Send"/>
             </form>
-            <video style="width=400;height=400;" id="video"></video>
+            <canvas id="videoCanvas">
+            </canvas>
+            <video style="width=400;height=400;" id="video" hidden></video>
             <button class="button is-link" id="startbutton" disabled>Shoot</button>
         </div>
         <div class="column">
