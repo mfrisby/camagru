@@ -2,37 +2,30 @@
 	
 	var width = 400;
 	var height = 400;
-
 	var streaming = false;
-
 	var video = document.getElementById('video');
-
 	//draw video in canvas with png
 	var videoCanvas = document.getElementById('videoCanvas');
 	var videoContext = videoCanvas.getContext('2d');
-
 	//draw final picture in canvas
 	var canvas = document.createElement("canvas");
 	var context = canvas.getContext('2d');
-
 	var path = "";
 	var img = new Image();
-
+	//png
 	var hat = document.getElementById('hat');
 	var fire = document.getElementById('fire');
 	var beer = document.getElementById('beer');
 	var hatborder = document.getElementById('trHat');
 	var fireborder = document.getElementById('trFire');
 	var beerborder = document.getElementById('trBeer');
-
 	var startbutton = document.getElementById('startbutton');
 	var sendbutton = document.getElementById('sendbutton');
-
+	//move buttons
 	var buttonL = document.getElementById('buttonLeft');
 	var buttonD = document.getElementById('buttonDown');
 	var buttonR = document.getElementById('buttonRight');
 	var buttonU = document.getElementById('buttonUp');
-
 	var pngX = 0;
 	var pngY = 0;
 
@@ -76,11 +69,6 @@
 	}, false);
 
 	function takepicture() {
-		if (!streaming) {
-			var data = videoCanvas.toDataURL('image/png');
-			show_picture(data);
-		}
-		else {
 			if (width && height) {
 				canvas.width = width;
 				canvas.height = height;
@@ -95,11 +83,6 @@
 					img.src = path;
 				}
 			}
-		}
-	}
-	function show_picture(data) {
-		var table = document.getElementById("table");
-		table.innerHTML += "<img src=\"" + data + "\"/></br>";
 	}
 
 	startbutton.addEventListener('click', function (ev) {
@@ -113,16 +96,21 @@
 		if (width && height) {
 			canvas.width = width;
 			canvas.height = height;
-
-			videoCanvas.setAttribute('width', width);
-			videoCanvas.setAttribute('height', height);
-
 			var input = document.getElementById("filepng");
 			var fReader = new FileReader();
 			fReader.readAsDataURL(input.files[0]);
 			fReader.onloadend = function (event) {
 				pic.onload = function () {
 					draw_pic(pic);
+					var data = canvas.toDataURL('image/png');
+					if (path != "") {
+						img.onload = function () {
+							context.drawImage(img, pngX, pngY);
+							var data = canvas.toDataURL('image/png');
+							show_picture(data);
+						}
+						img.src = path;
+					}
 				}
 				pic.src = event.target.result;
 			}
@@ -245,7 +233,7 @@
 	}
 	function draw_pic(pic) {
 		(function loop() {
-			videoContext.drawImage(pic, 0, 0, width, height);
+			context.drawImage(pic, 0, 0, width, height);
 			setTimeout(loop, 1000 / 30); // drawing at 30fps
 		})();
 	}
@@ -255,6 +243,10 @@
 			videoContext.drawImage(img, pngX, pngY);
 			setTimeout(loop, 1000 / 30); // drawing at 30fps
 		})();
+	}
+	function show_picture(data) {
+		var table = document.getElementById("table");
+		table.innerHTML += "<img src=\"" + data + "\"/></br>";
 	}
 	window.addEventListener('load', startup, false);
 })();
