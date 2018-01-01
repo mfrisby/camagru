@@ -107,6 +107,7 @@
 						img.onload = function () {
 							context.drawImage(img, pngX, pngY);
 							var data = canvas.toDataURL('image/png');
+							send_cam_pic(data, path);
 							show_picture(data);
 						}
 						img.src = path;
