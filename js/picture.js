@@ -3,12 +3,12 @@
 	var height = 400;
 
 	var streaming = false;
+	var isplaying = false;
   
 	var video = document.getElementById('video');
 	var videoCanvas = document.getElementById('videoCanvas');
 	var canvas = document.createElement("canvas");
 	var photo = document.getElementById('photo');
-	var startbutton = document.getElementById('startbutton');
 	var context = canvas.getContext('2d');
 	var videoContext = videoCanvas.getContext('2d');
 
@@ -22,6 +22,8 @@
 	var beerborder = document.getElementById('trBeer');
 	var tmp = document.getElementById("tmp");
 
+	var startbutton = document.getElementById('startbutton');
+	var sendbutton = document.getElementById('sendbutton');
 
 	var buttonL = document.getElementById('buttonLeft');
 	var buttonD = document.getElementById('buttonDown');
@@ -52,6 +54,7 @@
 					var vendorURL = window.URL || window.webkitURL;
 					video.src = vendorURL.createObjectURL(stream);
 				}
+				isplaying = true;
 				video.play();
 		},function(err) {
 		  console.log("An error occured! " + err);
@@ -117,14 +120,17 @@
 				return ;
 			}
 			path = "images/fire.png";
-			fireborder.style.border = "1px solid white";
+			fireborder.style.border = "1px solid black";
 			hatborder.style.border = "none";
 			beerborder.style.border = "none";
 			startbutton.disabled = false;
-			img.onload = function() {
-				draw_png(path);
+			sendbutton.disabled = false;
+			if (isplaying == true) {
+				img.onload = function() {
+					draw_png(path);
+				}
+				img.src = path;
 			}
-			img.src = path;
 			ev.preventDefault();
 		}, false);
 
@@ -133,14 +139,17 @@
 				return ;
 			}
 			path = "images/hat.png";
-			hatborder.style.border = "1px solid white";
+			hatborder.style.border = "1px solid black";
 			fireborder.style.border = "none";
 			beerborder.style.border = "none";
 			startbutton.disabled = false;
-			img.onload = function() {
-				draw_png(path);
+			sendbutton.disabled = false;
+			if (isplaying == true) {
+				img.onload = function() {
+					draw_png(path);
+				}
+				img.src = path;
 			}
-			img.src = path;
 			ev.preventDefault();
 		}, false);
 
@@ -149,14 +158,17 @@
 				return ;
 			}
 			path = "images/beer.png";
-			beerborder.style.border = "1px solid white";
+			beerborder.style.border = "1px solid black";
 			fireborder.style.border = "none";
 			hatborder.style.border = "none";
 			startbutton.disabled = false;
-			img.onload = function() {
-				draw_png(path);
+			sendbutton.disabled = false;
+			if (isplaying == true) {
+				img.onload = function() {
+					draw_png(path);
+				}
+				img.src = path;
 			}
-			img.src = path;
 			ev.preventDefault();
 		}, false);
 
