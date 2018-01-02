@@ -4,10 +4,15 @@
     
     require_once 'config/database.php';
     
+  $connected = false;
+
     $index = 0;
     $page = 0;
     $maxpics = 10;
 
+    if (isset($_SESSION['signup_success']))  {
+      $connected = true;
+    }
     if (isset($_GET['page'])) {
       $page = $_GET['page'];
       $index = $page * $maxpics;
@@ -29,7 +34,7 @@
       }
       $elem = $data[$index];
       $like = get_like($elem['id'], $pdo);
-      add_card($elem['img'], $elem['id'], $like, $pdo, $elem['userid']);
+      add_card($elem['img'], $elem['id'], $like, $pdo, $elem['userid'], $connected);
       $index++;
       $maxpics--;
     }
@@ -53,7 +58,7 @@
             return ($user['username']);
           return "John Smith";
         }
-        function add_card($img, $id, $like, $pdo, $userid) {
+        function add_card($img, $id, $like, $pdo, $userid, $connected) {
           echo "<div class=\"card mycard\">
               <div class=\"card-image\" id=\"$id\">
                 <figure class=\"image is-4by3\">
@@ -76,7 +81,11 @@
                     <input name=\"text\" class=\"input\" type=\"text\" placeholder=\"Comment\">
                   </div>
                   <div class=\"control\">
-                    <input type=\"submit\" value=\"Send\" class=\"button is-info\">
+                    <input type=\"submit\" value=\"Send\"";
+                    if ($connected == false) {
+                      echo "disabled ";
+                    }
+                    echo "class=\"button is-info\">
                   </div>
                 </form>
                 </div>
@@ -86,7 +95,14 @@
               <span class=\"card-footer-item\">
               $like
               </span>
-              <a class=\"card-footer-item\" method=\"post\" href=\"functions/like.php?img=$id\">
+              <a class=\"card-footer-item\" method=\"post\" href=\"";
+              if ($connected == true) {
+               echo "functions/like.php?img=$id\"";
+              }
+              else {
+                echo "#\" style=\"cursor: not-allowed;\"";
+              }
+              echo ">
                 Like
               </a>
               </div>";
