@@ -73,7 +73,6 @@
 		}
 	}, false);
 
-
 	startbutton.addEventListener('click', function (ev) {
 		takepicture();
 		ev.preventDefault();
@@ -90,8 +89,7 @@
 			fReader.readAsDataURL(input.files[0]);
 			fReader.onloadend = function (event) {
 				pic.onload = function () {
-					draw_pic(pic);
-					var data = canvas.toDataURL('image/png');
+					context.drawImage(pic, 0, 0, width, height);
 					if (path != "") {
 						img.onload = function () {
 							context.drawImage(img, pngX, pngY);
@@ -120,7 +118,7 @@
 		};
 		xmlhttp.open("POST", "functions/submitfile.php");
 		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xmlhttp.send("img=" + dataurl + "filter=" + path);
+		xmlhttp.send("img=" + dataurl);
 	}
 
 	/**
@@ -218,12 +216,6 @@
 	function draw_video() {
 		(function loop() {
 			videoContext.drawImage(video, 0, 0, width, height);
-			setTimeout(loop, 1000 / 30); // drawing at 30fps
-		})();
-	}
-	function draw_pic(pic) {
-		(function loop() {
-			context.drawImage(pic, 0, 0, width, height);
 			setTimeout(loop, 1000 / 30); // drawing at 30fps
 		})();
 	}

@@ -4,8 +4,6 @@
     var lb = document.querySelector('#logB');
     var sb = document.querySelector('#signB');
     var fb = document.querySelector('#forgB');
- /*    var lform = document.querySelector('#logform');
-    var sform = document.querySelector('#signform'); */
 
     sb.addEventListener('click', function (event) {
             sdiv.style.display = "block";
@@ -31,9 +29,3 @@
             sb.className = "";
             lb.className = "";
     });
-/*     lform.addEventListener('submit', function (event) {
-        
-    });
-    sform.addEventListener('submit', function (event) {
-        
-    }); */
