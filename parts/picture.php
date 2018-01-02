@@ -9,7 +9,7 @@
         </div>
         <div class="column" style="border:1px solid black;text-align: center;">
              <form enctype="multipart/form-data" >
-                <input type="file" name="myfile" id="filepng"/>
+                <input type="file" name="myfile" id="filepng" required/>
                 </br>
             <button class="button is-link" id="sendbutton" disabled>Send</button>
             </form>
