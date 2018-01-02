@@ -50,7 +50,12 @@
 			}
 			video.play();
 		}, function (err) {
-			//do stuff
+			videoCanvas.style.display = "none";
+			buttonL.style.display = "none";
+			buttonD.style.display = "none";
+			buttonR.style.display = "none";
+			buttonU.style.display = "none";
+			startbutton.style.display = "none";
 		});
 	}
 
@@ -68,22 +73,6 @@
 		}
 	}, false);
 
-	function takepicture() {
-			if (width && height) {
-				canvas.width = width;
-				canvas.height = height;
-				context.drawImage(video, 0, 0, width, height);
-				if (path != "") {
-					img.onload = function () {
-						context.drawImage(img, pngX, pngY);
-						var data = canvas.toDataURL('image/png');
-						send_cam_pic(data, path);
-						show_picture(data);
-					}
-					img.src = path;
-				}
-			}
-	}
 
 	startbutton.addEventListener('click', function (ev) {
 		takepicture();
@@ -248,6 +237,22 @@
 	function show_picture(data) {
 		var table = document.getElementById("table");
 		table.innerHTML += "<img src=\"" + data + "\"/></br>";
+	}
+	function takepicture() {
+			if (width && height) {
+				canvas.width = width;
+				canvas.height = height;
+				context.drawImage(video, 0, 0, width, height);
+				if (path != "") {
+					img.onload = function () {
+						context.drawImage(img, pngX, pngY);
+						var data = canvas.toDataURL('image/png');
+						send_cam_pic(data, path);
+						show_picture(data);
+					}
+					img.src = path;
+				}
+			}
 	}
 	window.addEventListener('load', startup, false);
 })();
