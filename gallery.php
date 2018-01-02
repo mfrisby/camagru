@@ -29,7 +29,7 @@
       }
       $elem = $data[$index];
       $like = get_like($elem['id'], $pdo);
-      add_card($elem['img'], $elem['id'], $like);
+      add_card($elem['img'], $elem['id'], $like, $pdo, $elem['userid']);
       $index++;
       $maxpics--;
     }
@@ -44,7 +44,16 @@
           $req->closeCursor();
           return ($c);
         }
-        function add_card($img, $id, $like) {
+        function get_user($pdo, $id) {
+          $req = $pdo->prepare('SELECT * FROM `users` WHERE id=:id');
+          $req->execute(array(':id' => $id));
+          $user = $req->fetch();
+          $req->closeCursor();
+          if ($user)
+            return ($user['username']);
+          return "John Smith";
+        }
+        function add_card($img, $id, $like, $pdo, $userid) {
           echo "<div class=\"card mycard\">
               <div class=\"card-image\" id=\"$id\">
                 <figure class=\"image is-4by3\">
@@ -54,14 +63,13 @@
               <div class=\"card-content\">
                 <div class=\"media\">
                   <div class=\"media-content\">
-                    <p class=\"title is-4\">John Smith</p>
+                    <p class=\"title is-4\">";
+                    echo get_user($pdo, $userid);
+                    echo "</p>
                   </div>
                 </div>
                 <div class=\"content\">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Phasellus nec iaculis mauris.
                   <br>
-                  <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>
                   <form class=\"field has-addons\" method=\"post\" action=\"functions/postcomments.php\">
                   <div class=\"control\">
                     <input name=\"imgid\" value=\"$id\" hidden>
