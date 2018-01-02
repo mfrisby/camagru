@@ -3,6 +3,7 @@
     require_once '../config/database.php';
 
     $file = "";
+    echo "je suis la";
     if (isset($_POST['img'])) {
         $img = $_POST['img'];
         $img = str_replace('data:image/png;base64,', '', $img);

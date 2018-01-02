@@ -1,6 +1,10 @@
 <?php 
     session_start();
     include("parts/header.php");
+    if (!isset($_SESSION['username']) || $_SESSION['verified'] == 'N') {
+        echo "You're not allowed to access this page";
+        return ;
+    }
     include("parts/profil.html");
     if (isset($_SESSION['username']) AND isset($_SESSION['email']) AND isset($_SESSION['comment'])) {  
         $comment = htmlspecialchars($_SESSION['comment']);
