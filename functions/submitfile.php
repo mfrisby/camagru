@@ -13,5 +13,12 @@
         $relative = "../gallery/" . $id . '.png';
         $file = "gallery/" .$id . '.png';
         $success = file_put_contents($relative, $data);
+
+
+    $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $userid = $_SESSION['id'];
+    $req = $pdo->prepare("INSERT INTO gallery (userid, img) VALUES (:userid, :img)");
+    $req->execute(array(':userid' => $userid, ':img' => $file));
     }
 ?>
