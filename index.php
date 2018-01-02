@@ -14,12 +14,6 @@
             echo (alert("I send you a link by email. Please validate your account.", "is-warning"));
         }
         else if (isset($_SESSION['signup_success']))  {
-            if (isset($_GET['fileupload'])) {
-                echo (alert("Upload succeed", "is-success")); 
-            }
-            if (isset($_GET['noupload'])) {
-                echo (alert("Upload failed", "is-danger"));
-            }
             include("parts/picture.php");
         }
         else {
