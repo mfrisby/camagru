@@ -12,14 +12,14 @@
             ldiv.style.display = "none";
             fdiv.style.display = "none";
             lb.className = "";
-            sb.className.classList.add("is-active");
+            sb.classList.add("is-active");
             fb.className = "";
     });
     lb.addEventListener('click', function (event) {
             ldiv.style.display = "block";
             sdiv.style.display = "none";
             fdiv.style.display = "none";
-        lb.className.classList.add("is-active");
+        lb.classList.add("is-active");
         fb.className = "";
         sb.className = "";
     });    
@@ -27,7 +27,7 @@
             ldiv.style.display = "none";
             sdiv.style.display = "none";
             fdiv.style.display = "block";
-            fb.className.classList.add('is-active');
+            fb.classList.add('is-active');
             sb.className = "";
             lb.className = "";
     });

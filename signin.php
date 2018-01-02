@@ -31,7 +31,12 @@
                 $errors['email'] = "Email already exist.";
             }
         }
+        //if 
+        //echo 'Secure enough';
         if (empty($password) OR strlen($password) < 3) {
+            $errors['password'] = "Mot de passe invalide";
+        }
+        else if(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $password) == 0) {
             $errors['password'] = "Mot de passe invalide";
         }
         $password =  password_hash($password, PASSWORD_DEFAULT);
