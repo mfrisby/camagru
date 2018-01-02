@@ -2,31 +2,48 @@
     session_start();
     include("parts/header.php");
     
-    if (isset($_GET['m1'])) {
-      echo (alert("Please loggin or signin to do that.", "is-warning"));
+    require_once 'config/database.php';
+    
+    $index = 0;
+    $page = 0;
+    $maxpics = 10;
+
+    if (isset($_GET['page'])) {
+      $page = $_GET['page'];
+      $index = $page * $maxpics;
     }
-    else if (isset($_GET['m2'])) {
-      echo (alert("You successfully comment a picture.", "is-success"));
+    $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $req = $pdo->prepare("SELECT * FROM gallery");
+    $req->execute();
+    $data = $req->fetchAll();
+    $req->closeCursor();
+    echo "<div id=\"gallerytableau\">";
+    
+    $len = count($data);
+    $maxpages = $len / 10;
+    while ($index < $len) {
+      if ($maxpics == 0) {
+        $maxpics = 10;
+        break ;
+      }
+      $elem = $data[$index];
+      $like = get_like($elem['id'], $pdo);
+      add_card($elem['img'], $elem['id'], $like);
+      $index++;
+      $maxpics--;
     }
-    else if (isset($_GET['m3'])) {
-      echo (alert("Something went wrong.", "is-danger"));
-    }
-    else if (isset($_GET['m4'])) {
-      echo (alert("You successfully like a picture.", "is-success"));
-    }
-        require_once 'config/database.php';
-        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $req = $pdo->prepare("SELECT * FROM gallery");
-        $req->execute();
-        $data = $req->fetchAll();
-        $req->closeCursor();
-        echo "<div id=\"gallerytableau\">";
-        foreach ($data as $elem) {
-            $like = get_like($elem['id'], $pdo);
-            add_card($elem['img'], $elem['id'], $like);
+    
+    echo "</div>";
+    
+        function get_like($id, $pdo) {
+          $like = 'like';
+          $req = $pdo->prepare('SELECT * FROM `like` WHERE galleryid=:galleryid');
+          $req->execute(array(':galleryid' => $id));
+          $c = count($req->fetchAll());
+          $req->closeCursor();
+          return ($c);
         }
-        echo "</div>";
         function add_card($img, $id, $like) {
           echo "<div class=\"card mycard\">
               <div class=\"card-image\" id=\"$id\">
@@ -66,32 +83,39 @@
               </a>
               </div>";
         }
-        function get_like($id, $pdo) {
-          $like = 'like';
-          $req = $pdo->prepare('SELECT * FROM `like` WHERE galleryid=:galleryid');
-          $req->execute(array(':galleryid' => $id));
-          $c = count($req->fetchAll());
-          $req->closeCursor();
-          return ($c);
-        }
 ?>
+
 <div class="modal">
-          <div class="modal-background"></div>
-          <div class="modal-card">
-            <header class="modal-card-head">
-              <p class="modal-card-title">Comments</p>
-              <button class="delete my-close" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body" id="modalcontent">
-            </section>
-          </div>
-          </div>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Comments</p>
+      <button class="delete my-close" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body" id="modalcontent"></section>
+  </div>
+</div>     
+
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+  <ul class="pagination-list">
+  <?php
+  $i = 0;
+  while ($i < $maxpages) {
+    echo "<li>";
+    echo "<a class=\"pagination-link\" href=\"http://localhost/camagru/gallery.php?page=$i\" aria-label=\"Page $i\" aria-current=\"page\">$i</a>";
+    echo "</li>";
+    $i++;
+  }
+  ?>
+  </ul>
+</nav>
+
 <?php
   include("parts/footer.html");        
   function alert($string, $type) {
     $s = "<section class=\"hero ".$type."\"><div class=\"hero-body container\">".$string."</div></section>";
     return $s;
-}
+  }
 ?>
 
 <script src="js/gallery.js"></script>
