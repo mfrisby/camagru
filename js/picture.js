@@ -31,6 +31,7 @@
 
 	function startup() {
 
+		get_pictures();
 		navigator.getMedia = (
 			navigator.getUserMedia ||
 			navigator.webkitGetUserMedia ||
@@ -95,7 +96,6 @@
 							context.drawImage(img, pngX, pngY);
 							var data = canvas.toDataURL('image/png');
 							send_cam_pic(data, path);
-							show_picture(data);
 						}
 						img.src = path;
 					}
@@ -105,21 +105,6 @@
 		}
 		ev.preventDefault();
 	}, false);
-
-	/**
-	 * AJAX REQ
-	 */
-
-	function send_cam_pic(dataurl, path) {
-		if (window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-		} else {
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		};
-		xmlhttp.open("POST", "functions/submitfile.php");
-		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xmlhttp.send("img=" + dataurl);
-	}
 
 	/**
 	 * IMAGE PNG EVENT
@@ -240,11 +225,51 @@
 						context.drawImage(img, pngX, pngY);
 						var data = canvas.toDataURL('image/png');
 						send_cam_pic(data, path);
-						show_picture(data);
 					}
 					img.src = path;
 				}
 			}
+	}
+		/**
+	 * AJAX REQ
+	 */
+
+	function send_cam_pic(dataurl, path) {
+		var formData = new FormData();
+		formData.append("img", dataurl);
+		formData.append("png", path);
+		formData.append("pngx", pngX);
+		formData.append("pngy", pngY);
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		};
+		xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+				get_pictures();
+            }
+        }
+		xmlhttp.open("POST", "functions/submitfile.php");
+		xmlhttp.send(formData);
+	}
+
+	function get_pictures() {
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		};
+		xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+				var arr = this.responseText.split(" ");
+				arr.forEach(function(element) {
+					show_picture(element);
+				});
+            }
+        }
+		xmlhttp.open("GET", "functions/getpictures.php");
+		xmlhttp.send();
 	}
 	window.addEventListener('load', startup, false);
 })();
