@@ -59,9 +59,6 @@
           return "John Smith";
         }
 
-/*         function delete_pic() {
-          DELETE FROM `table` WHERE condition
-        } */
         function add_card($img, $id, $like, $pdo, $userid, $connected) {
           echo "<div class=\"card mycard\">
               <div class=\"card-image\" id=\"$id\">
