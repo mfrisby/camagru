@@ -19,7 +19,7 @@
     }
     $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $req = $pdo->prepare("SELECT * FROM gallery");
+    $req = $pdo->prepare("SELECT * FROM gallery ORDER BY id DESC");
     $req->execute();
     $data = $req->fetchAll();
     $req->closeCursor();
@@ -58,6 +58,10 @@
             return ($user['username']);
           return "John Smith";
         }
+
+/*         function delete_pic() {
+          DELETE FROM `table` WHERE condition
+        } */
         function add_card($img, $id, $like, $pdo, $userid, $connected) {
           echo "<div class=\"card mycard\">
               <div class=\"card-image\" id=\"$id\">
@@ -70,7 +74,7 @@
                   <div class=\"media-content\">
                     <p class=\"title is-4\">";
                     echo get_user($pdo, $userid);
-                    echo "</p>
+                    echo "
                   </div>
                 </div>
                 <div class=\"content\">
