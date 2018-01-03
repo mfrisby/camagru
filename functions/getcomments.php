@@ -10,15 +10,24 @@
         $array = $req->fetchAll();
         $req->closeCursor();
         foreach ($array as $elem) {
-            echo get_comments($elem['comment']);
+            $username = get_username($pdo, $elem['userid']);
+            echo get_comments($elem['comment'], $username);
         }
         return ($array);
     }
-    function get_comments($msg) {
-        $start = "<article class=\"message is-dark\">
-        <div class=\"message-body\">";
+    function get_comments($msg, $username) {
+        $start = "<article class=\"message is-dark\"><div class=\"message-header\"><p>$username</p></div><div class=\"message-body\">";
         $end = "</div></article>";
         $comments = $start.$msg.$end;
         return $comments;
-      }
+    }
+    function get_username($pdo, $id) {
+        $req = $pdo->prepare("SELECT * FROM users WHERE id=:id");
+        $req->execute(array(':id' => $id));
+        $user = $req->fetch();
+        $req->closeCursor();
+        if (!$user)
+            return ("");
+        return $user['username'];
+    }
 ?>
