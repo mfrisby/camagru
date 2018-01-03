@@ -218,7 +218,6 @@
 				context.drawImage(video, 0, 0, width, height);
 				if (path != "") {
 					img.onload = function () {
-						context.drawImage(img, pngX, pngY);
 						var data = canvas.toDataURL('image/png');
 						send_cam_pic(data, path);
 					}
