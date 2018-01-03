@@ -7,13 +7,13 @@
        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        $req = $pdo->prepare("SELECT * FROM gallery WHERE userid=:userid");
        $req->execute(array(':userid' => $id));
-       $array = $req->fetchAll();
+       $pic = $req->fetch();
        $req->closeCursor();
 
-       foreach ($array as $elem) {
-           $img = $elem['img'];
-           $imgid = $elem['id'];
-           echo "<button id=\"$imgid\" class=\"delete\" aria-label=\"delete\"></button><img src=\"$img\"/></br>"."+";
+       echo unlink("../" . $pic['img']);
+       if ($_SESSION['id'] == $pic['userid']) {
+            $req = $pdo->prepare("DELETE FROM gallery WHERE id=:id");
+            $req->execute(array(':id' => $pic['id']));
        }
    }
 ?>

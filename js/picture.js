@@ -104,8 +104,8 @@
 			}
 		}
 		ev.preventDefault();
-	}, false);
-
+	}, false);    
+	
 	/**
 	 * IMAGE PNG EVENT
 	 */
@@ -211,10 +211,6 @@
 			setTimeout(loop, 1000 / 30); // drawing at 30fps
 		})();
 	}
-	function show_picture(data) {
-		var table = document.getElementById("table");
-		table.innerHTML += "<img src=\"" + data + "\"/></br>";
-	}
 	function takepicture() {
 			if (width && height) {
 				canvas.width = width;
@@ -234,6 +230,23 @@
 	 * AJAX REQ
 	 */
 
+
+	function delete_pics(id) {
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		};
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			/* 	alert(this.responseText); */
+				get_pictures();
+			}
+		}
+		xmlhttp.open("POST", "functions/deletepicture.php");
+		xmlhttp.send(id);
+		
+	}
 	function send_cam_pic(dataurl, path) {
 		var formData = new FormData();
 		formData.append("img", dataurl);
@@ -262,10 +275,18 @@
 		};
 		xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-				var arr = this.responseText.split(" ");
+				table.innerHTML = "";
+				var arr = this.responseText.split("+");
 				arr.forEach(function(element) {
-					show_picture(element);
+					table.innerHTML += element;
 				});
+				//list all pics for delete button
+				var pics = document.getElementsByClassName('delete');
+				for (var i = 0; i < pics.length; i++) {
+					pics[i].addEventListener('click', function (event) {
+							delete_pics(this.id);
+					});
+				}
             }
         }
 		xmlhttp.open("GET", "functions/getpictures.php");
