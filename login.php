@@ -17,20 +17,15 @@
             header("Location: index.php?msglogerror");
         }
         if (password_verify($password, $user['password'])){
-            if ($user['verified'] == 'O') {
-                $_SESSION['signup_success'] = true;
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['password'] = $user['password'];
-                $_SESSION['id'] = $user['id'];
-                $_SESSION['token'] = $user['token'];
-                $_SESSION['verified'] = $user['verified'];
-                $_SESSION['comment'] = $user['comment'];
-                header("Location: index.php");
-            }
-            else {
-                header("Location: index.php?msglogverified");
-            }
+            $_SESSION['verified'] = $user['verified'];
+            $_SESSION['signup_success'] = true;
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['password'] = $user['password'];
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['token'] = $user['token'];
+            $_SESSION['comment'] = $user['comment'];
+            header("Location: index.php");
         }
         else {
             header("Location: index.php?msglogerror");

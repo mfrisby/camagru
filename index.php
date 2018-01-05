@@ -10,7 +10,7 @@
             echo (alert("Login error, wrong password or username.", "is-danger"));
             include("parts/forms.html");
         }
-        else if (isset($_GET['msglogverified'])) {
+        else if (isset($_SESSION['verified']) AND $_SESSION['verified'] == 'N') {
             echo (alert("I send you a link by email. Please validate your account.", "is-warning"));
         }
         else if (isset($_SESSION['signup_success']))  {
