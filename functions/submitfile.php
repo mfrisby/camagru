@@ -28,9 +28,10 @@
 
         imagecopy($img, $png, $x, $y, 0,0, imagesx($png), imagesy($png));
         imagepng($img, $id.'.png');
-
+        if (file_exists($id . '.png')) {
+            unlink($id . '.png');
+        }
         $img = imagepng($img, $relative);
-        
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $userid = $_SESSION['id'];
