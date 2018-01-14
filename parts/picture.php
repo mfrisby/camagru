@@ -17,10 +17,10 @@
 </br>
             <canvas style="border:1px solid black;" id="videoCanvas"></canvas>
 </br>
-            <input type="image" src="images/arrow_left.png" id="buttonLeft"></input>
-            <input type="image" src="images/arrow_down.png" id="buttonDown"></input>
-            <input type="image" src="images/arrow_up.png" id="buttonUp"></input>
-            <input type="image" src="images/arrow_right.png" id="buttonRight"></input>
+            <input type="image" alt="left" src="images/left.png" id="buttonLeft"></input>
+            <input type="image" alt="down" src="images/down.png" id="buttonDown"></input>
+            <input type="image" alt="up" src="images/up.png" id="buttonUp"></input>
+            <input type="image" alt="right" src="images/right.png" id="buttonRight"></input>
 
             <video style="width=400;height=400;" id="video" hidden></video>
 </br>
