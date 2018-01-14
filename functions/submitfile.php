@@ -4,6 +4,9 @@
 
     $file = "";
     if (isset($_POST['img']) AND isset($_POST['png']) AND isset($_POST['pngx']) AND isset($_POST['pngy']) ) {
+        if (!file_exists('../gallery')) {
+            mkdir('../gallery', 0777, true);
+        }
         $img = $_POST['img'];
         $png = "../".$_POST['png'];
         $x = $_POST['pngx'];
