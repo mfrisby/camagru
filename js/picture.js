@@ -16,6 +16,8 @@
 	var hat = document.getElementById('hat');
 	var fire = document.getElementById('fire');
 	var beer = document.getElementById('beer');
+	var grumpy = document.getElementById('grumpy');
+	var grumpyborder = document.getElementById('trGrumpy');
 	var hatborder = document.getElementById('trHat');
 	var fireborder = document.getElementById('trFire');
 	var beerborder = document.getElementById('trBeer');
@@ -28,6 +30,25 @@
 	var buttonU = document.getElementById('buttonUp');
 	var pngX = 0;
 	var pngY = 0;
+
+	var filter = ""
+	var select = document.getElementById('mySelect');
+	select.addEventListener('change', function (ev) {
+		var text = select.value;
+		if (text == "blur") {
+			filter = 'blur(5px)';
+		}
+		else if (text == "grayscale") {
+			filter = 'grayscale(70%)';
+		}
+		else if (text == "sepia") {
+			filter = 'sepia(70%)';
+		}
+		else if (text == "invert") {
+			filter = 'invert(100%)';
+		}
+	}, false);
+
 
 	function startup() {
 
@@ -117,6 +138,7 @@
 		path = "images/fire.png";
 		fireborder.style.border = "1px solid black";
 		hatborder.style.border = "none";
+		grumpyborder.style.border = "none";
 		beerborder.style.border = "none";
 		startbutton.disabled = false;
 		sendbutton.disabled = false;
@@ -133,6 +155,26 @@
 		}
 		path = "images/hat.png";
 		hatborder.style.border = "1px solid black";
+		grumpyborder.style.border = "none";
+		fireborder.style.border = "none";
+		beerborder.style.border = "none";
+		startbutton.disabled = false;
+		sendbutton.disabled = false;
+		img.onload = function () {
+				draw_png();
+		}
+		img.src = path;
+		ev.preventDefault();
+	}, false);
+
+
+	grumpy.addEventListener('click', function (ev) {
+		if (path == "images/grumpy.png") {
+			return;
+		}
+		path = "images/grumpy.png";
+		grumpyborder.style.border = "1px solid black";
+		hatborder.style.border = "none";
 		fireborder.style.border = "none";
 		beerborder.style.border = "none";
 		startbutton.disabled = false;
@@ -151,6 +193,7 @@
 		path = "images/beer.png";
 		beerborder.style.border = "1px solid black";
 		fireborder.style.border = "none";
+		grumpyborder.style.border = "none";
 		hatborder.style.border = "none";
 		startbutton.disabled = false;
 		sendbutton.disabled = false;
@@ -200,6 +243,7 @@
 
 	function draw_video() {
 		(function loop() {
+			videoContext.filter = filter;
 			videoContext.drawImage(video, 0, 0, width, height);
 			setTimeout(loop, 1000 / 30); // drawing at 30fps
 		})();
@@ -215,6 +259,7 @@
 			if (width && height) {
 				canvas.width = width;
 				canvas.height = height;
+				context.filter = filter;
 				context.drawImage(video, 0, 0, width, height);
 				if (path != "") {
 					img.onload = function () {

@@ -6,6 +6,16 @@
                 </br>
             <div id="trBeer"><a id="beer"><img src="images/beer.png"></img></a></div>
                 </br>
+            <div id="trGrumpy"><a id="grumpy"><img src="images/grumpy.png"></img></a></div>
+                </br>
+                <select id="mySelect">
+                    <option selected disabled>Filters</option>
+                    <option value="none">None</option>
+                    <option value="grayscale">grayscale</option>
+                    <option value="sepia">sepia</option>
+                    <option value="invert">invert</option>
+                    <option value="blur">blur</option>
+                </select>
         </div>
         <div class="column" style="border:1px solid black;text-align: center;">
              <form enctype="multipart/form-data" >
