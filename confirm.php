@@ -7,13 +7,18 @@
             $token = htmlspecialchars($_GET['token']);
             $userid = htmlspecialchars($_GET['id']);
             if (check_token($userid, $token) == 1)
-                echo "You're one of us now !";
+                echo(alert("You're one of us now !", "is-success"));
             else {
-                echo "Something went wrong.";
+               echo(alert("Something went wrong.", "is-danger"));
             }
         }
         else {
             echo "Something went wrong.";
+        }
+
+        function alert($string, $type) {
+            $s = "<section class=\"hero ".$type."\"><div class=\"hero-body container\">".$string."</div></section>";
+            return $s;
         }
     ?>
 </div>
