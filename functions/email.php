@@ -2,10 +2,10 @@
     function sendVerifMail($email, $token, $userId) {
         try {
             $subject = "Camagru - Hello";
-            $msg = "Afin de valider votre compte, merci de cliquer sur ce lien:\n\nlocalhost/camagru/confirm.php?id=$userId&token=$token";
+            $msg = "<H2>Camagru</h2><p>Afin de valider votre compte, merci de vous rendre sur ce lien:</br>localhost/camagru/confirm.php?id=$userId&token=$token</p>";
             $headers = "From: mowpy42@gmailcom" . "\r\n" .
             "Reply-To: mowpy42@gmailcom" . "\r\n" .
-            "X-Mailer: PHP/" . phpversion();
+            "Content-Type: text/html; charset=\"iso-8859-1\"";
             mail($email, $subject, $msg, $headers);
         }
         catch (PDOException $e) {
@@ -15,10 +15,10 @@
     function sendPassword($email, $password) {
         try {
             $subject = "Camagru - Password";
-            $msg = "You're password has been reset.</br>You're new password is $password";
+            $msg = "<H2>Camagru</h2><p>Your password has been reset.</p><p>Your new password is <strong> $password </strong></p>";
             $headers = "From: mowpy42@gmailcom" . "\r\n" .
             "Reply-To: mowpy42@gmailcom" . "\r\n" .
-            "X-Mailer: PHP/" . phpversion();
+            "Content-Type: text/html; charset=\"iso-8859-1\"";
            
             mail($email, $subject, $msg, $headers);
         }
@@ -29,10 +29,10 @@
     function sendComment($email) {
         try {
             $subject = "Camagru - Comment";
-            $msg = "One of your picture got a comment. Hell yeah.";
+            $msg = "<H2>Camagru</h2><p>One of your picture got a comment.</p><p> Hell yeah.</p>";
             $headers = "From: mowpy42@gmailcom" . "\r\n" .
             "Reply-To: mowpy42@gmailcom" . "\r\n" .
-            "X-Mailer: PHP/" . phpversion();
+            "Content-Type: text/html; charset=\"iso-8859-1\"";
            
             mail($email, $subject, $msg, $headers);
         }
