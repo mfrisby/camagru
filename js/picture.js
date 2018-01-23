@@ -53,13 +53,11 @@
 	function startup() {
 
 		get_pictures();
-		navigator.getMedia = (
-			navigator.getUserMedia ||
-			navigator.webkitGetUserMedia ||
-			navigator.mozGetUserMedia ||
-			navigator.msGetUserMedia);
+		navigator.getUserMedia = 	navigator.getUserMedia ||
+									navigator.webkitGetUserMedia ||
+									navigator.mozGetUserMedia;
 
-		navigator.getMedia({
+		navigator.getUserMedia({
 			video: true,
 			audio: false
 		}, function (stream) {
@@ -276,6 +274,8 @@
 
 
 	function delete_pics(id) {
+		var data = new FormData();
+		data.append("id", id);
 		if (window.XMLHttpRequest) {
 			xmlhttp = new XMLHttpRequest();
 		} else {
@@ -283,12 +283,11 @@
 		};
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-			/* 	alert(this.responseText); */
 				get_pictures();
 			}
 		}
 		xmlhttp.open("POST", "functions/deletepicture.php");
-		xmlhttp.send(id);
+		xmlhttp.send(data);
 		
 	}
 	function send_cam_pic(dataurl, path) {
@@ -324,7 +323,6 @@
 				arr.forEach(function(element) {
 					table.innerHTML += element;
 				});
-				//list all pics for delete button
 				var pics = document.getElementsByClassName('delete');
 				for (var i = 0; i < pics.length; i++) {
 					pics[i].addEventListener('click', function (event) {
